@@ -1,0 +1,42 @@
+﻿<meta>
+    <info author="LmB Roleplay" name="lmb_mechanic" description="LmB Customs - professional mechanic job: repair, upgrades, colors, parts, tow, invoices, ranks and workshop" version="1.0.0" type="script"/>
+
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <include resource="ng-economy"/>
+    <include resource="ng-jobs"/>
+    <include resource="ng-vehicles"/>
+    <include resource="ng-characters"/>
+
+    <script src="config.lua" type="shared" cache="false"/>
+
+    <script src="server/s_core.lua" type="server" cache="false"/>
+    <script src="server/s_db.lua" type="server" cache="false"/>
+    <script src="server/s_job.lua" type="server" cache="false"/>
+    <script src="server/s_service.lua" type="server" cache="false"/>
+    <script src="server/s_invoice.lua" type="server" cache="false"/>
+    <script src="server/s_tow.lua" type="server" cache="false"/>
+    <script src="server/s_world.lua" type="server" cache="false"/>
+
+    <script src="client/c_ui.lua" type="client" cache="false"/>
+    <script src="client/c_world.lua" type="client" cache="false"/>
+
+    <file src="fonts/Constantia.ttf"/>
+    <file src="fonts/Constantia-Italic.ttf"/>
+    <file src="fonts/BebasNeueRegular.otf"/>
+    <file src="fonts/Ubuntu-L.ttf"/>
+    <file src="fonts/Ubuntu-B.ttf"/>
+    <file src="fonts/Cairo.ttf"/>
+    <file src="fonts/Tajawal-Regular.ttf"/>
+    <file src="fonts/Tajawal-Medium.ttf"/>
+    <file src="fonts/Tajawal-Bold.ttf"/>
+
+    <file src="ui/logo.png"/>
+    <file src="ui/glow.png"/>
+    <file src="ui/grad.png"/>
+    <file src="ui/ring.png"/>
+    <file src="ui/ic_title.png"/>
+    <file src="ui/icons/*.png"/>
+
+    <file src="sounds/tool.wav"/>
+</meta>
