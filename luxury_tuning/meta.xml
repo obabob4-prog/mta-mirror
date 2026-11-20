@@ -1,0 +1,6 @@
+<meta>
+    <info name="[LuxuryCars] Tuning Garage" author="Luxury Pack" version="1.0" type="script" description="Mechanic tuning system: paint, performance stages, nitro, hydraulics, lights" />
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="sign.png" />
+</meta>
