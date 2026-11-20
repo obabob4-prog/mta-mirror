@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Rolls-Royce Cullinan" author="Humster3D,Isaev,Beshanov" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/landstal.dff" />
+    <file src="models/landstal.txd" />
+</meta>
