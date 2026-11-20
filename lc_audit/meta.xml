@@ -1,0 +1,8 @@
+<meta>
+    <info name="LC Audit" author="gta4gg" version="1.0" type="script"
+          description="One-shot Liberty City collision / ground verification tool (diagnostic only)" />
+    <script src="c_audit.lua" type="client" cache="false" />
+    <script src="s_audit.lua" type="server" cache="false" />
+    <export function="getGroundProbe" type="server" />
+    <min_mta_version client="1.6.0" server="1.6.0" />
+</meta>
