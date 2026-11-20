@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Lamborghini Aventador LP700-4 Light Tune" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/uranus.dff" />
+    <file src="models/uranus.txd" />
+</meta>
