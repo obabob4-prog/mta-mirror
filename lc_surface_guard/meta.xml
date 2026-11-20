@@ -1,0 +1,8 @@
+<meta>
+    <info name="LC Surface Guard" author="LC server" version="1.0.0" type="script"
+          description="Automatically detects and repairs Liberty City road voids, thin strips and duplicate-surface z-fighting around players." />
+    <script src="server/s_surface.lua" type="server" />
+    <script src="client/c_surface.lua" type="client" />
+    <export function="getStats" type="server" />
+    <min_mta_version client="1.6.0" server="1.6.0" />
+</meta>
