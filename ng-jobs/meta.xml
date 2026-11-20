@@ -1,0 +1,8 @@
+<meta>
+    <info author="NGRP" name="ng-jobs" description="Jobs: taxi, trucker, courier, mechanic, fisher, trader + routes" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <script src="s_jobs.lua" type="server" cache="false"/>
+    <script src="c_jobs.lua" type="client" cache="false"/>
+    <export function="setJob" http="false"/>
+</meta>
