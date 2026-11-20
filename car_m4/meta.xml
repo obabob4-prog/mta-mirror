@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] BMW M4 2019" author="Boris_Borisovich, Mihail_Burcev" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/uranus.dff" />
+    <file src="models/uranus.txd" />
+</meta>
