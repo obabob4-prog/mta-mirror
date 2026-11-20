@@ -1,0 +1,25 @@
+<meta>
+    <info author="Lmbaw9in RP" name="lc_peds" description="HD GTA V female player ped models" type="script" version="1.0" />
+    <script src="client.lua" type="client" cache="false" />
+
+    <file src="models/9_bfori.dff" />
+    <file src="models/9_bfori.txd" />
+    <file src="models/12_wfybu.dff" />
+    <file src="models/12_wfybu.txd" />
+    <file src="models/13_dnfolc2.dff" />
+    <file src="models/13_dnfolc2.txd" />
+    <file src="models/40_hfyri.dff" />
+    <file src="models/40_hfyri.txd" />
+    <file src="models/56_ofyri.dff" />
+    <file src="models/56_ofyri.txd" />
+    <file src="models/88_wfori.dff" />
+    <file src="models/88_wfori.txd" />
+    <file src="models/93_ofori.dff" />
+    <file src="models/93_ofori.txd" />
+    <file src="models/141_sofybu.dff" />
+    <file src="models/141_sofybu.txd" />
+    <file src="models/190_copgrl3.dff" />
+    <file src="models/190_copgrl3.txd" />
+    <file src="models/195_gangrl3.dff" />
+    <file src="models/195_gangrl3.txd" />
+</meta>
