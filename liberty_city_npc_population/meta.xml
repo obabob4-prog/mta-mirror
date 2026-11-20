@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta>
+    <info author="OpenCode" name="Liberty City NPC Population"
+          description="Server-authoritative Liberty City pedestrians using only the seven supplied BlueNode skin packs"
+          version="1.0.0" type="script" />
+
+    <!-- Shared settings: loaded on BOTH server and client -->
+    <script src="config.lua" />
+
+    <!-- Authoritative server logic.  Load order matters: helpers first. -->
+    <script src="server/s_debug.lua"    type="server" />
+    <script src="server/s_paths.lua"    type="server" />
+    <script src="server/s_spawn.lua"    type="server" />
+    <script src="server/s_behaviour.lua" type="server" />
+    <script src="data/spawn_graph.lua"  type="server" />
+    <script src="server/s_main.lua"     type="server" />
+    <script src="server/s_sync.lua"     type="server" />
+
+    <!-- View only: custom-model loading + ground/water SENSORS.
+         No client ever creates an NPC or decides how one moves. -->
+    <script src="client/c_models.lua"   type="client" />
+    <script src="client/c_ground.lua"   type="client" />
+
+    <!-- Supplied skins ONLY (original DFF/TXD bytes) -->
+    <file src="skins/hospital_doctor.dff" />
+    <file src="skins/hospital_doctor.txd" />
+    <file src="skins/random_girl_v2.dff" />
+    <file src="skins/random_girl_v2.txd" />
+    <file src="skins/roleplay_girl.dff" />
+    <file src="skins/roleplay_girl.txd" />
+    <file src="skins/roleplay_girl_v2.dff" />
+    <file src="skins/roleplay_girl_v2.txd" />
+    <file src="skins/tattooed_girl.dff" />
+    <file src="skins/tattooed_girl.txd" />
+    <file src="skins/tourist_girl.dff" />
+    <file src="skins/tourist_girl.txd" />
+    <file src="skins/kaine_goth.dff" />
+    <file src="skins/kaine_goth.txd" />
+</meta>
