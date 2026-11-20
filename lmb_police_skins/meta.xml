@@ -1,0 +1,12 @@
+<meta>
+    <info name="[LmB] LCPD Uniform Skins (GTA V conversions)" author="LmB Roleplay / sourced from GTAAll authors" version="1.0" type="script" description="Runtime DFF/TXD replacements for the police ped IDs used by lmb_police uniforms. No gta3.img files are modified." />
+
+    <script src="client.lua" type="client" cache="false" />
+
+    <file src="models/lcpd_skin_patrol.dff" />
+    <file src="models/lcpd_skin_patrol.txd" />
+    <file src="models/lcpd_skin_senior.dff" />
+    <file src="models/lcpd_skin_senior.txd" />
+    <file src="models/lcpd_skin_motors.dff" />
+    <file src="models/lcpd_skin_motors.txd" />
+</meta>
