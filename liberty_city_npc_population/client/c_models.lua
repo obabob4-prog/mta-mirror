@@ -19,8 +19,11 @@
 local models = {}
 local loaded = false
 
+-- Server.log mirror (no chat/GUI).
+addEvent("lcnpc:clientLog", true)
 local function log(msg)
     if LCNPC.debug then outputDebugString("[lcnpc] " .. tostring(msg), 0, 232, 197, 107) end
+    triggerServerEvent("lcnpc:clientLog", localPlayer, tostring(msg))
 end
 
 local function loadModels()
@@ -50,7 +53,13 @@ local function loadModels()
     end
 end
 
-addEventHandler("onClientResourceStart", resourceRoot, loadModels)
+addEventHandler("onClientResourceStart", resourceRoot, function()
+    loadModels()
+    local n = 0
+    for i = 1, #LCNPC.skins do if models[i] then n = n + 1 end end
+    setElementData(localPlayer, "lcnpc.clientAlive", n, true)
+    log("CLIENT READY models=" .. n .. "/" .. #LCNPC.skins)
+end)
 
 function LCNPCGetModel(index)
     return models[tonumber(index) or 0]
@@ -141,6 +150,7 @@ end, 3000, 0)
 -- Reports only to server.log; never to chat/GUI.
 addEvent("lcnpc:diag", true)
 addEventHandler("lcnpc:diag", root, function()
+    log("DIAG REQUEST RECEIVED")
     local loadedCount = 0
     for i = 1, #LCNPC.skins do if models[i] then loadedCount = loadedCount + 1 end end
     local painted, stock, total = 0, 0, 0
@@ -156,7 +166,7 @@ addEventHandler("lcnpc:diag", root, function()
             if custom then extPainted = extPainted + 1 else extStock = extStock + 1 end
         end
     end
-    triggerServerEvent("lcnpc:diagResult", resourceRoot,
+    triggerServerEvent("lcnpc:diagResult", localPlayer,
         loadedCount, painted, stock, total, extPainted, extStock, extTotal)
 end)
 

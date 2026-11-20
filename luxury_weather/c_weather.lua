@@ -154,8 +154,8 @@ end
 -- Events
 -- ------------------------------------------------------------------
 
-addEvent("luxuryWeather:state", false)
-addEvent("luxuryWeather:time", false)
+addEvent("luxuryWeather:state", true)
+addEvent("luxuryWeather:time", true)
 addEvent("luxuryWeather:request", false)
 
 addEventHandler("luxuryWeather:state", root, function(s)

@@ -941,7 +941,7 @@ end
 --  Events / commands
 -- ============================================================
 
-addEvent("luxuryGraphics:quality", false)
+addEvent("luxuryGraphics:quality", true)
 addEvent("luxuryGraphics:request", false)
 addEvent("luxuryGraphics:setQuality", false)
 

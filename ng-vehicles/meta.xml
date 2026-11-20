@@ -7,4 +7,7 @@
     <script src="c_dealer.lua" type="client" cache="false"/>
     <script src="c_f9vehicles.lua" type="client" cache="false"/>
     <export function="createOwnedVehicle" http="false"/>
+    <export function="buyVehicleAt" http="false"/>
+    <export function="sellVehicleAt" http="false"/>
+    <export function="sellVehicleByID" http="false"/>
 </meta>

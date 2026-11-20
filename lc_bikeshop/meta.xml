@@ -1,0 +1,8 @@
+<meta>
+    <info author="OpenCode" name="lc_bikeshop" description="LC bicycle + motorcycle shop - buy, sell, test ride" version="1.0" type="script"/>
+    <include resource="ng-database"/>
+    <include resource="ng-economy"/>
+    <include resource="ng-vehicles"/>
+    <script src="s_shop.lua" type="server" cache="false"/>
+    <script src="c_shop.lua" type="client" cache="false"/>
+</meta>

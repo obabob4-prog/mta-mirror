@@ -1125,7 +1125,16 @@ stopCreation = function(reason, opts)
             setElementDimension(localPlayer, saved.dimension or 0)
             setElementPosition(localPlayer, saved.x, saved.y, saved.z)
             setElementRotation(localPlayer, saved.rx, saved.ry, saved.rz)
-            setElementFrozen(localPlayer, saved.frozen and true or false)
+            -- 2026-11-20: when a character is CREATED (not cancelled), the
+            -- player is entering the game world. Always unfreeze and hide the
+            -- cursor regardless of the saved state (which captured the frozen/
+            -- cursor-on state from the char-list UI). Otherwise the player
+            -- stays frozen with a visible cursor after creation.
+            if reason == "created" then
+                setElementFrozen(localPlayer, false)
+            else
+                setElementFrozen(localPlayer, saved.frozen and true or false)
+            end
 
             if saved.target and isElement(saved.target) then
                 setCameraTarget(saved.target)
@@ -1152,7 +1161,12 @@ stopCreation = function(reason, opts)
             setPlayerHudComponentVisible("all", true)
         end
 
-        showCursor(saved.cursor and true or false)
+        -- 2026-11-20: hide cursor on successful creation (entering game)
+        if reason == "created" then
+            showCursor(false)
+        else
+            showCursor(saved.cursor and true or false)
+        end
     end
 
     saved = false

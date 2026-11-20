@@ -35,8 +35,13 @@ local function collectState()
         return "V1-old"
     end)
     parts[#parts + 1] = "creatorFile=" .. tostring(okv and ver or "ERR")
-    local oka, act = pcall(function() return exports["sCharacterCreator"]:isCreationActive() end)
-    parts[#parts + 1] = "creatorActive=" .. tostring(oka and act or "ERR")
+    local creator = getResourceFromName("sCharacterCreator")
+    if creator and getResourceState(creator) == "running" then
+        local oka, act = pcall(function() return exports["sCharacterCreator"]:isCreationActive() end)
+        parts[#parts + 1] = "creatorActive=" .. tostring(oka and act or "ERR")
+    else
+        parts[#parts + 1] = "creatorActive=OFF"
+    end
     table.insert(parts, "mtaBuild=" .. tostring(getVersion().sortable))
     return table.concat(parts, " | ")
 end

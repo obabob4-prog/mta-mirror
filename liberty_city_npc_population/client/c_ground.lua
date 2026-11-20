@@ -21,7 +21,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
             if isElement(ped) and getElementDimension(ped) == 0
                and getElementInterior(ped) == 0 then
                 local id = tonumber(getElementData(ped, "lcnpc.id") or 0)
-                if id > 0 and getTickCount() - (lastCheck[id] or 0) > 5000 then
+                if id > 0 and getTickCount() - (lastCheck[id] or 0) > 1200 then
                     lastCheck[id] = getTickCount()
                     local x, y, z = getElementPosition(ped)
                     local gz = getGroundPosition(x, y, z + 3)
@@ -29,13 +29,13 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
                     if type(testLineAgainstWater) == "function" then
                         wet = testLineAgainstWater(x, y, z + 0.5, x, y, z - 1.5) and true or false
                     end
-                    if wet or (gz and math.abs(gz - z) > 2.0) then
+                    if wet or (gz and math.abs(gz - z) > 0.20) then
                         triggerServerEvent("lcnpc:groundIssue", resourceRoot, ped, gz or z, wet)
                     end
                 end
             end
         end
-    end, 2000, 0)
+    end, 600, 0)
 end)
 
 addEventHandler("onClientResourceStop", resourceRoot, function()
