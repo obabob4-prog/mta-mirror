@@ -1,0 +1,5 @@
+<meta>
+    <info author="gta4gg" name="lc_tp" description="Auto-teleport out-of-bounds players + live diagnostics file + /lctp command" version="1.1" type="script"/>
+    <script src="s_tp.lua" type="server" cache="false"/>
+    <script src="c_diag.lua" type="client" cache="false"/>
+</meta>
