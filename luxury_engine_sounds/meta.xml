@@ -1,0 +1,9 @@
+<meta>
+    <info name="[LuxuryCars] Engine Sounds" author="Luxury Pack" version="1.0" type="script" description="Dynamic engine sound system for luxury vehicles" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="sounds/engine_v8_super.wav" />
+    <file src="sounds/engine_v12_hyper.wav" />
+    <file src="sounds/engine_turbo_i6.wav" />
+    <file src="sounds/engine_flat6.wav" />
+    <file src="sounds/engine_v8_suv.wav" />
+</meta>
