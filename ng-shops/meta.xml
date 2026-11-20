@@ -1,0 +1,14 @@
+<meta>
+    <info author="NGRP" name="ng-shops" description="24/7 stores, Burger Shot, clothing store - GTA V style placement with HD clerks" version="1.1" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <include resource="ng-economy"/>
+    <include resource="ng-inventory"/>
+    <script src="s_shops.lua" type="server" cache="false"/>
+    <script src="c_shops.lua" type="client" cache="false"/>
+
+    <file src="images/banner_247_bohan.png"/>
+    <file src="images/banner_247_dukes.png"/>
+    <file src="images/banner_burgershot.png"/>
+    <file src="images/banner_binco.png"/>
+</meta>
