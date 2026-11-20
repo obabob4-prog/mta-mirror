@@ -1,0 +1,5 @@
+<meta>
+    <info author="NGRP" name="ng-showroom" description="Harley-Davidson showroom scene rebuilt from Menyoo Spooner XML (GTA V coords, SA models)" type="script" />
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" cache="false" />
+</meta>
