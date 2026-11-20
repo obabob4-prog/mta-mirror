@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Honda NSX 2017" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/euros.dff" />
+    <file src="models/euros.txd" />
+</meta>
