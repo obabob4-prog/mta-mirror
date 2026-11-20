@@ -1,0 +1,41 @@
+<meta>
+    <info author="LmB" name="LmB Car Radio" description="URL-based in-car radio with DX player" version="1.0.0" />
+
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" cache="false" />
+
+    <file src="songs/youtube/mRZhFOsLCW0.m4a" />
+    <file src="songs/youtube/XTI3nJWdNP0.m4a" />
+    <file src="songs/youtube/3JO6JlHeqhQ.m4a" />
+    <file src="songs/youtube/BXqoqA7fe4U.m4a" />
+    <file src="songs/youtube/ijj-LaMeSs8.m4a" />
+    <file src="songs/youtube/1zCcj1q4IC0.m4a" />
+    <file src="songs/youtube/1Z82k1MkIBQ.m4a" />
+    <file src="songs/youtube/v0mx--tSrtA.m4a" />
+    <file src="songs/youtube/BD4fvzDcORo.m4a" />
+    <file src="songs/youtube/K1qNKFxv8z0.m4a" />
+    <file src="songs/youtube/rdhqlSvijsI.m4a" />
+    <file src="songs/youtube/BMXJx9siivc.m4a" />
+    <file src="songs/youtube/bWj44rxFozM.m4a" />
+    <file src="songs/youtube/XBg4J2Y3IrY.m4a" />
+    <file src="songs/youtube/AJY4jvjTP3g.m4a" />
+    <file src="songs/youtube/_83o1qn_fxA.m4a" />
+
+    <!-- artist packs: Phobia Isaac / MC Artisan / Zed-K (6 each) -->
+    <file src="songs/youtube/0XrrV97xfkk.m4a" />
+    <file src="songs/youtube/lVZS3Ad13jM.m4a" />
+    <file src="songs/youtube/XigJWWH6ybo.m4a" />
+    <file src="songs/youtube/4s5j8cM9p5o.m4a" />
+    <file src="songs/youtube/Cl3WDyxmhh8.m4a" />
+    <file src="songs/youtube/w2EdmvVn2RA.m4a" />
+    <file src="songs/youtube/w2LFVcWk6Fs.m4a" />
+    <file src="songs/youtube/z33qjI2pCBg.m4a" />
+    <file src="songs/youtube/ZMAVLEr7VdM.m4a" />
+    <file src="songs/youtube/TbpfwVndO_s.m4a" />
+    <file src="songs/youtube/cwgtjcY5ToY.m4a" />
+    <file src="songs/youtube/tsDCZjr1KqU.m4a" />
+    <file src="songs/youtube/W3nD8AEz1S0.m4a" />
+    <file src="songs/youtube/TzSon6OGWug.m4a" />
+    <file src="songs/youtube/ttBhcMG4cdA.m4a" />
+    <file src="songs/youtube/TvUhV88BVKo.m4a" />
+</meta>
