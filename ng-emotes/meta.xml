@@ -1,0 +1,5 @@
+<meta>
+    <info author="NGRP" name="ng-emotes" description="GTA V style emotes: /e dance sit handsup cower drunk smoke stop" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <script src="s_emotes.lua" type="server" cache="false"/>
+</meta>
