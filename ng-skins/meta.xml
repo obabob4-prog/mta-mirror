@@ -1,0 +1,17 @@
+<meta>
+    <info author="Lmbaw9in RP" name="ng-skins" type="script" version="1.0" />
+    <script src="client.lua" type="client" cache="false" />
+
+    <file src="business.dff" />
+    <file src="business.txd" />
+    <file src="bloods.dff" />
+    <file src="bloods.txd" />
+    <file src="handsome.dff" />
+    <file src="handsome.txd" />
+    <file src="mafia.dff" />
+    <file src="mafia.txd" />
+    <file src="mafia2.dff" />
+    <file src="mafia2.txd" />
+    <file src="doctor.dff" />
+    <file src="doctor.txd" />
+</meta>
