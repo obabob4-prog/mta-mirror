@@ -1,0 +1,31 @@
+<meta>
+    <info author="OpenCode" type="script" name="luxury_graphics" version="1.0.0" description="HD sky, cinematic post-process, rain FX and quality scaling for Liberty City" />
+    <min_mta_version server="1.5.9-9.21437.0" client="1.5.9-9.21437.0" />
+
+    <script src="s_graphics.lua" type="server" />
+    <script src="c_graphics.lua" type="client" cache="false" />
+
+    <file src="sky.fx" />
+    <file src="cinematic.fx" />
+    <file src="wet.fx" />
+
+    <file src="sounds/rain_loop.wav" />
+    <file src="sounds/thunder.wav" />
+
+    <file src="textures/sky_alt_1k.jpg" />
+    <file src="textures/sky_alt_2k.jpg" />
+    <file src="textures/sky_cloudy_1k.jpg" />
+    <file src="textures/sky_cloudy_2k.jpg" />
+    <file src="textures/sky_dawn_1k.jpg" />
+    <file src="textures/sky_dawn_2k.jpg" />
+    <file src="textures/sky_mist_1k.jpg" />
+    <file src="textures/sky_mist_2k.jpg" />
+    <file src="textures/sky_night_1k.png" />
+    <file src="textures/sky_night_2k.png" />
+    <file src="textures/sky_overcast_1k.jpg" />
+    <file src="textures/sky_overcast_2k.jpg" />
+    <file src="textures/sky_sunny_1k.jpg" />
+    <file src="textures/sky_sunny_2k.jpg" />
+    <file src="textures/sky_sunset_1k.jpg" />
+    <file src="textures/sky_sunset_2k.jpg" />
+</meta>
