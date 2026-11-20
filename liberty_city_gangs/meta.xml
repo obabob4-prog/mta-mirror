@@ -1,0 +1,34 @@
+<meta>
+    <info author="gta4gg" name="liberty_city_gangs"
+          description="Liberty City mafia and gangs system (factions, HQs, ranks, treasury, vehicles, territories) - foundation"
+          type="script" version="0.1.0" />
+
+    <min_mta_version server="1.6.0-9.22470" client="1.6.0-9.22470" />
+
+    <!-- Core dependencies (existing systems) -->
+    <include resource="ng-database" />
+    <include resource="ng-economy" />
+    <include resource="ng-inventory" />
+    <include resource="ng-characters" />
+
+    <!-- Shared configuration -->
+    <script src="shared/config.lua" type="shared" cache="false" />
+
+    <!-- Server: DB/schema first, then core modules -->
+    <script src="server/s_db.lua" type="server" cache="false" />
+    <script src="server/s_core.lua" type="server" cache="false" />
+    <script src="server/s_members.lua" type="server" cache="false" />
+    <script src="server/s_hq.lua" type="server" cache="false" />
+    <script src="server/s_treasury.lua" type="server" cache="false" />
+    <script src="server/s_warehouse.lua" type="server" cache="false" />
+    <script src="server/s_vehicles.lua" type="server" cache="false" />
+    <script src="server/s_territory.lua" type="server" cache="false" />
+    <script src="server/s_activities.lua" type="server" cache="false" />
+
+    <!-- Client -->
+    <script src="client/c_core.lua" type="client" cache="false" />
+    <script src="client/c_ui.lua" type="client" cache="false" />
+    <script src="client/c_hq.lua" type="client" cache="false" />
+
+    <file src="docs/README.md" />
+</meta>
