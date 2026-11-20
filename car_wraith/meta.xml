@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Rolls-Royce Wraith" author="TheMan vk.com/id300923858 mansoryclub666@gmail.com" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/hustler.dff" />
+    <file src="models/hustler.txd" />
+</meta>
