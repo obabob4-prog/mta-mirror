@@ -1,0 +1,8 @@
+<meta>
+    <info name="LC Graphics" author="gta4gg" version="1.1" type="script"
+          description="Liberty City post-process image enhancement (unsharp mask) with an FPS self-test. Toggle with /lchq" />
+    <script src="c_graphics.lua" type="client" cache="false" />
+    <script src="s_graphics.lua" type="server" cache="false" />
+    <file src="sharpen.fx" type="client" cache="false" />
+    <min_mta_version client="1.6.0" server="1.6.0" />
+</meta>
