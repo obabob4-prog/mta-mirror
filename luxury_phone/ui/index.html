@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+window.onerror = function (m, s, l) {
+    try { mta.triggerEvent("lxp:bridge", "js error: " + m + " @ " + s + ":" + l); } catch (e) {}
+    return false;
+};
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="phone" class="w1">
+
+    <!-- glow frame -->
+    <div class="frame-glow"></div>
+
+    <!-- status bar -->
+    <div id="statusbar">
+        <span id="sb-time">--:--</span>
+        <span id="sb-name">iFruit</span>
+        <span class="sb-right">
+            <svg class="sb-ic" viewBox="0 0 20 14"><g fill="currentColor"><rect x="0" y="10" width="3" height="4" rx="0.5"/><rect x="5" y="7" width="3" height="7" rx="0.5"/><rect x="10" y="4" width="3" height="10" rx="0.5"/><rect x="15" y="1" width="3" height="13" rx="0.5"/></g></svg>
+            <svg class="sb-ic" viewBox="0 0 26 14"><rect x="0.5" y="1.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="15" height="6" rx="1.5" fill="currentColor"/><rect x="23" y="5" width="2.5" height="4" rx="1" fill="currentColor"/></svg>
+        </span>
+    </div>
+
+    <!-- screen -->
+    <div id="screen">
+
+        <!-- brightness overlay -->
+        <div id="brightness"></div>
+
+        <!-- =================== lock screen =================== -->
+        <div id="lockscreen" class="pane active">
+            <div class="lock-clock" id="lk-time">--:--</div>
+            <div class="lock-date" id="lk-date">-</div>
+            <div class="lock-hint">TAP TO UNLOCK</div>
+            <div class="lock-note">GTA V ROLEPLAY - iFruit OS</div>
+        </div>
+
+        <!-- =================== home =================== -->
+        <div id="home" class="pane">
+            <div class="home-inner">
+                <div id="app-grid"></div>
+            </div>
+            <div class="dock" id="dock"></div>
+            <div class="home-dots"><span class="on"></span><span></span></div>
+        </div>
+
+        <!-- =================== app pane =================== -->
+        <div id="appview" class="pane">
+            <div class="app-head">
+                <button id="app-back" class="app-back">&#8592;</button>
+                <div id="app-title" class="app-title">APP</div>
+            </div>
+            <div id="app-content" class="app-content"></div>
+        </div>
+
+        <!-- =================== incoming call overlay =================== -->
+        <div id="incoming" class="overlay hidden">
+            <div class="inc-label">INCOMING CALL</div>
+            <div class="inc-number" id="inc-number">-</div>
+            <div class="inc-waves"><span></span><span></span><span></span></div>
+            <button id="inc-decline" class="inc-btn decline">DECLINE</button>
+        </div>
+
+        <!-- =================== toast =================== -->
+        <div id="phone-toast" class="phone-toast hidden"></div>
+    </div>
+
+    <!-- home indicator -->
+    <div id="home-bar" class="hidden" onclick="goHome()"><div class="hb-line"></div></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

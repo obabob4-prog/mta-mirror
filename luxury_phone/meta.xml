@@ -1,0 +1,23 @@
+<meta>
+    <info author="NGRP Lux" name="luxury_phone" description="GTA V iFruit style smartphone (CEF): 12 apps, 3D phone in hand, calls, SMS, bank, GPS, vehicles, services, camera, settings" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <include resource="ng-phone"/>
+    <include resource="ng-economy"/>
+    <include resource="ng-inventory"/>
+
+    <script src="server.lua" type="server" cache="false"/>
+    <script src="client.lua" type="client" cache="false"/>
+
+    <file src="ui/index.html"/>
+    <file src="ui/style.css"/>
+    <file src="ui/app.js"/>
+    <file src="assets/click.wav"/>
+    <file src="assets/notify.wav"/>
+    <file src="assets/call.wav"/>
+    <file src="assets/unlock.wav"/>
+    <file src="assets/shutter.wav"/>
+    <file src="assets/message.wav"/>
+
+    <export function="closeUI" type="client" http="false"/>
+</meta>
