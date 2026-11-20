@@ -1,0 +1,8 @@
+<meta>
+    <info author="OpenCode" type="script" name="luxury_weather" version="1.0.0" description="Server-authoritative Liberty City weather, time, schedule and sync" />
+    <min_mta_version server="1.5.9-9.21437.0" client="1.5.9-9.21437.0" />
+
+    <script src="presets.lua" type="server" />
+    <script src="s_weather.lua" type="server" />
+    <script src="c_weather.lua" type="client" cache="false" />
+</meta>
