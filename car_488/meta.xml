@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Ferrari 488 GTB 2016" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/cheetah.dff" />
+    <file src="models/cheetah.txd" />
+</meta>
