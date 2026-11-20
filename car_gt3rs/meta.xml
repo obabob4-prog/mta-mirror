@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Porsche 911 GT3 RS 2023" author="Anarchist_Game" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/comet.dff" />
+    <file src="models/comet.txd" />
+</meta>
