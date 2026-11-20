@@ -1,0 +1,4 @@
+<meta>
+    <info author="gta4gg" name="cc_bridge" description="Bridges sCharacterCreator (3D creator) into ng-characters: login -> fancy creation -> spawn" version="1.0" type="script"/>
+    <script src="s_bridge.lua" type="server" cache="false"/>
+</meta>
