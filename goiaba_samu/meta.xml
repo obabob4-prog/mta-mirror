@@ -1,0 +1,25 @@
+<meta>
+
+	<info author = 'Caio' name = 'Samu' />
+
+	<script src = 'caioG.lua' type = 'shared' cache = 'false' />
+	<script src = 'caioC.lua' type = 'client' cache = 'false' />
+	<script src = 'caioS.lua' type = 'server' />
+
+	<file src='images/blur.png' />
+	<file src='images/info.png' />
+	<file src='images/border.png' />
+	<file src='images/button1.png' />
+	<file src='images/button2.png' />
+	<file src='images/resp.png' />
+	<file src='images/morte.png' />
+
+	<export function = 'tratamentoJogador' type = 'server' />
+	<export function = 'curarJogador' type = 'server' />
+	<export function = 'playerDeath' type = 'server' />
+	<export function = 'setPlayerCaido' type = 'server' />
+	<export function = 'loggedPlayer' type = 'server' />
+
+	<min_mta_version server="1.5.7" client="1.5.7" />
+
+</meta>
