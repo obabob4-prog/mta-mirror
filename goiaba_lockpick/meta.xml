@@ -1,0 +1,40 @@
+<meta>
+
+    <script src='config.lua' type='shared' cache='false' />
+
+
+
+    <script src='src/shared/lib/lua-class.lua' type='shared' cache='false' />
+
+    <script src='src/shared/utils.lua' type='shared' cache='false' />
+
+
+
+    <script src='src/client/responsive.lua' type='client' cache='false' />
+
+    <script src='src/client/components/Animation.lua' type='client' cache='false' />
+
+    <script src='src/client/means.lua' type='client' cache='false' />
+
+    <script src='src/client/ui/render.lua' type='client' cache='false' />
+
+
+
+    <script src='src/server/main.lua' type='server' />
+
+
+
+    <file src='public/images/bar_time.png' />
+    <file src='public/images/bg_bar.png' />
+    <file src='public/images/bg_bar_attempts.png' />
+    <file src='public/images/bg_lockpick.png' />
+    <file src='public/images/clock.png' />
+    <file src='public/images/line.png' />
+    <file src='public/images/bar.png' />
+    <file src='public/images/pin.png' />
+
+
+
+    <export function='useLockPick' type='shared' />
+
+</meta>
