@@ -1,0 +1,4 @@
+<meta>
+    <info author="MTAUniversalHost" name="mta_universal_host" type="script" version="1.0.0" />
+    <script src="server.lua" type="server" cache="false" />
+</meta>
