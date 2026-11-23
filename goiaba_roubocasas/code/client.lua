@@ -1,0 +1,8 @@
+addEvent('alarmSound_', true)
+addEventHandler('alarmSound_', root, function (i,d,x, y, z)
+    local alarm = playSound3D('assets/alarm.mp3', x, y, z)
+    setElementDimension(alarm, d)
+    setElementInterior(alarm, i)
+    setSoundVolume(alarm, 0.5)
+    setSoundMaxDistance(alarm, 30)
+end)
