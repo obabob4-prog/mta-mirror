@@ -1,0 +1,6 @@
+<meta>
+    <info name="LC Ultra Graphics Panel" author="LC Project" version="1.0.0" description="Client-side graphics settings panel for Liberty City. Does not alter server UIs." type="script" />
+    <min_mta_version client="1.6.0-9.24109.0" />
+    <script src="c_panel.lua" type="client" />
+    <script src="s_panel.lua" type="server" />
+</meta>
