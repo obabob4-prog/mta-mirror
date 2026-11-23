@@ -3,13 +3,22 @@
     ------------------------
     1. Adds lost micro-detail to the original LC building textures without
        replacing their artwork (unsharp mask + subtle luminance grain).
-    2. Pushes explicit low-LOD buildings far away so the high-detail model is
-       the one seen near the player. This removes the duplicate-building
-       overlap reported at the "lab" area.
-    3. Breaks exact coplanarity of overlapping road tiles by a few centimetres
-       (reversible: stop the resource and restore the map by restarting LC).
+    2. Keeps LOD distances inside the 325 m range where GTA still fades models
+       instead of popping them, instead of pushing every model to 900 m and
+       every plant to 2500 m (low LOD objects multiply that by 5). Categories
+       are still classified by real bounding-box height/name:
+          buildings 380 m, landmarks 850 m, roads 650 m, vegetation 1200-1400 m
+       but the effective high-model switch is capped at 325 m; low LOD objects
+       receive the matching fifth of that value, low LOD buildings 305-325 m.
+       The original engine distance of every model is saved before the first
+       change and restored when the resource stops.
+    3. Breaks exact coplanarity of overlapping road tiles by 8 mm, and only
+       when two thin road plates really overlap (bounding boxes + top height).
+       The old build lifted every road tile within 24 m, which produced visible
+       steps on junctions.
 
-    Nothing here modifies IMG / TXD archives.
+    Nothing here modifies IMG / TXD archives, terrain geometry or the map files
+    at runtime.
 ]]
 
 local created = {}
@@ -83,145 +92,239 @@ local function applyDetailShader()
     triggerServerEvent("lc_hq:diag", localPlayer, tostring(tech or "?"), applied, #BUILDING_TEXTURES)
 end
 
--- engineSetModelLODDistance must be applied to BOTH sides of an LOD pair:
---   * high model -> stops the low-detail twin switching in at 100-300m
---     (that early switch is the city-wide "doubled building" overlap)
---   * low model  -> MTA requires >300 for a low-detail building to behave
---     correctly; otherwise it is drawn permanently on top of the high model.
--- Vegetation/grass LODs are impostor planes, so they are pushed much farther;
--- otherwise they appear as green patches floating in the sky.
-local lodApplied = {}
-local lodNewPushes = 0
-local vegPushes = 0
+-- ---------------------------------------------------------------------------
+-- LOD policy
+-- ---------------------------------------------------------------------------
+-- engineSetModelLODDistance is applied to BOTH sides of a linked pair. The
+-- low LOD must never be closer than the high model or MTA keeps drawing the
+-- coarse twin on top of the detailed one.
+--
+-- Distances are deliberately conservative: a 900 m blanket kept full-detail
+-- buildings (and 2500 m kept flat plant impostors) alive far beyond the point
+-- where they are readable. That wasted geometry/draw calls and exposed
+-- low-detail district shells at close range.
+
+local originalLOD = {}
+local appliedLOD = {}
+local stats = { building = 0, landmark = 0, veg = 0, road = 0 }
+
 local VEG_PATTERNS = {
     "veg", "grass", "bush", "tree", "foliage", "plant", "palm",
     "fern", "indtreepatch", "firegrass",
 }
+local LANDMARK_PATTERNS = {
+    "skyscrap", "scrapenew", "tower", "stadium", "bridge", "bridg",
+    "cathedral", "hospital", "police", "airport", "mansion", "colum",
+    "station", "dam", "lift",
+}
+local ROAD_PATTERN = "^rd_"
 
-local function isVegetation(id)
+local function matchesAny(id, patterns)
     id = tostring(id or ""):lower()
-    for _, pattern in ipairs(VEG_PATTERNS) do
+    for _, pattern in ipairs(patterns) do
         if id:find(pattern, 1, true) then return true end
     end
     return false
 end
 
-local function pushLODFar(model, target)
-    model = tonumber(model)
-    target = tonumber(target) or 900
-    if not model or model <= 0 then return end
-    -- lodApplied is never cleared while the resource runs, so a model first
-    -- seen as ordinary (900m) can still be raised later if it is vegetation.
-    if (lodApplied[model] or 0) >= target then return end
+local function getModelDistance(model)
+    if type(engineGetModelLODDistance) ~= "function" then return nil end
+    local ok, dist = pcall(engineGetModelLODDistance, model)
+    if ok and tonumber(dist) then return tonumber(dist) end
+    return nil
+end
 
-    if type(engineGetModelLODDistance) ~= "function"
-        or type(engineSetModelLODDistance) ~= "function" then
-        return
+local function saveOriginalDistance(model)
+    if originalLOD[model] == nil then
+        local dist = getModelDistance(model)
+        if dist then originalLOD[model] = dist end
     end
-    local okGet, dist = pcall(engineGetModelLODDistance, model)
-    dist = okGet and tonumber(dist) or 0
-    -- Never reduce a model the map already configured farther away
-    -- (e.g. 1800/2000/3000m distant land and seabed LODs).
-    if dist > target then
-        lodApplied[model] = dist
-        return
+end
+
+-- MTA specifics (wiki, engineSetModelLODDistance):
+--   * high models above 325 lose their fade and pop in/out
+--   * low LOD *objects* use 5x the supplied value as actual draw distance
+--   * low LOD *buildings* need a value above 300 to work at all
+-- Therefore we cap the real switch distance at 325 (the last value with a
+-- smooth fade) and derive the raw argument from the element type.
+local MAX_FADE_DISTANCE = 325
+
+local function setModelDistance(model, target, isLow, elementType)
+    if type(engineSetModelLODDistance) ~= "function" then return false end
+    if not model or model <= 0 then return false end
+    target = math.min(math.floor(target + 0.5), MAX_FADE_DISTANCE)
+    if isLow then
+        if elementType == "object" then
+            target = math.max(1, math.floor(target / 5 + 0.5)) -- 5x multiplier
+        else
+            target = math.max(305, target)                     -- low buildings
+        end
     end
-    local okSet = pcall(engineSetModelLODDistance, model, target, true)
-    if okSet then
-        lodApplied[model] = target
-        lodNewPushes = lodNewPushes + 1
-        if target >= 2500 then vegPushes = vegPushes + 1 end
-        outputDebugString("[lc_hq_buildings] LOD model " .. model .. " pushed to " .. target .. "m", 0)
+    saveOriginalDistance(model)
+    -- Never fight a model the map already keeps beyond 1200 m (distant land,
+    -- seabed, airport shells). Reducing those creates holes in the horizon.
+    local original = originalLOD[model]
+    if original and original > 1200 and target < original then
+        target = original
     end
+    if appliedLOD[model] == target then return false end
+    -- extendedLod is only needed when an untouched map value is above 325.
+    local ok = pcall(engineSetModelLODDistance, model, target, target > MAX_FADE_DISTANCE)
+    if ok then
+        appliedLOD[model] = target
+        return true
+    end
+    return false
+end
+
+-- getElementBoundingBox returns local min/max and needs a streamed element.
+local function localHeight(element)
+    if type(getElementBoundingBox) ~= "function" then return nil end
+    local x1, y1, z1, x2, y2, z2 = getElementBoundingBox(element)
+    if not x1 then return nil end
+    return math.abs(z2 - z1)
+end
+
+local function targetFor(element)
+    local id = tostring(getElementID(element) or "")
+    local lower = id:lower()
+    local low = getLowLODElement(element)
+    local lowId = isElement(low) and tostring(getElementID(low) or "") or ""
+
+    if matchesAny(id, VEG_PATTERNS) or matchesAny(lowId, VEG_PATTERNS) then
+        -- 1200-1400 m: enough to hide the cut-off, far less than 2500 m.
+        return (lower:find("treepatch", 1, true) and 1200 or 1400), "veg"
+    end
+
+    if matchesAny(id, LANDMARK_PATTERNS) then
+        return 850, "landmark"
+    end
+    if lower:find(ROAD_PATTERN) or lower:find("road", 1, true) then
+        return 650, "road"
+    end
+
+    local height = localHeight(element) or 0
+    if height >= 70 then return 900, "landmark" end
+    if height >= 35 then return 650, "building" end
+    if height >= 12 then return 500, "building" end
+    return 380, "building"
 end
 
 local function enforceLODDistance()
+    stats.building, stats.landmark, stats.veg, stats.road = 0, 0, 0, 0
+    local changed = 0
+
     for _, elementType in ipairs({ "building", "object" }) do
-        for _, e in ipairs(getElementsByType(elementType)) do
-            local id = tostring(getElementID(e) or "")
-            local low = getLowLODElement(e)
-            local veg = isVegetation(id) or (isElement(low) and isVegetation(getElementID(low))) or false
-            local lowerId = id:lower()
-
-            -- Push vegetation regardless of whether MTA has an explicit low-LOD
-            -- twin linked. Many LC trees/grass patches are standalone billboard
-            -- models (e.g. indtreepatch5, veg_tree3): their 100-300m LOD limit
-            -- is exactly what makes the flat green plane appear in the sky.
-            if veg then
-                pushLODFar(getElementModel(e), 2500)
-            end
-
+        for _, element in ipairs(getElementsByType(elementType)) do
+            local low = getLowLODElement(element)
             if isElement(low) then
-                pushLODFar(getElementModel(low), veg and 2500 or 900)
-                pushLODFar(getElementModel(e), veg and 2500 or 900)
-            elseif lowerId:find("^lod") then
-                pushLODFar(getElementModel(e), veg and 2500 or 900)
+                local target, kind = targetFor(element)
+                if setModelDistance(getElementModel(element), target, false, elementType) then
+                    stats[kind] = stats[kind] + 1
+                    changed = changed + 1
+                end
+                if setModelDistance(getElementModel(low), target, true, getElementType(low)) then
+                    changed = changed + 1
+                end
+            else
+                local id = tostring(getElementID(element) or ""):lower()
+                if id:find("^lod") then
+                    -- Orphan LOD elements are invisible to the pair walk; keep
+                    -- them at a readable distance instead of far away.
+                    if setModelDistance(getElementModel(element), 500, true, elementType) then
+                        changed = changed + 1
+                    end
+                end
             end
         end
     end
-    if vegPushes > 0 then
-        triggerServerEvent("lc_hq:diag", localPlayer, "VEG", vegPushes, 2500)
-        vegPushes = 0
-    end
-    if lodNewPushes > 0 then
-        triggerServerEvent("lc_hq:diag", localPlayer, "LOD", lodNewPushes, 900)
-        lodNewPushes = 0
+
+    if changed > 0 then
+        outputDebugString(string.format(
+            "[lc_hq_buildings] LOD policy: %d models adjusted (buildings %d, landmarks %d, roads %d, vegetation %d)",
+            changed, stats.building, stats.landmark, stats.road, stats.veg), 0)
+        triggerServerEvent("lc_hq:diag", localPlayer, "LOD", changed, stats.veg)
     end
 end
 
--- Runs IMMEDIATELY on resource start: an older build of this resource raised
--- road tiles by 0.06-0.12 m and flagged them with "lc_hq:roadLift". If we wait
--- for the slow world-stability poll, those visible overlaps stay on screen for
--- a long time after a hot reload. Undo is safe to call repeatedly.
-local function undoOldRoadLift()
+-- ---------------------------------------------------------------------------
+-- Road coplanarity guard (max 1 cm, overlap-verified)
+-- ---------------------------------------------------------------------------
+
+local ROAD_LIFT = 0.008
+local ROAD_LIFT_LIMIT = 0.01
+
+local function undoRoadLift()
     local undone = 0
-    for _, e in ipairs(getElementsByType("building")) do
-        local lift = getElementData(e, "lc_hq:roadLift")
-        if tonumber(lift) then
-            local x, y, z = getElementPosition(e)
-            setElementPosition(e, x, y, z - tonumber(lift))
-            setElementData(e, "lc_hq:roadLift", nil)
-            undone = undone + 1
+    for _, elementType in ipairs({ "building", "object" }) do
+        for _, element in ipairs(getElementsByType(elementType)) do
+            local lift = tonumber(getElementData(element, "lc_hq:roadLift"))
+            if lift and lift > 0 then
+                local x, y, z = getElementPosition(element)
+                setElementPosition(element, x, y, z - lift)
+                setElementData(element, "lc_hq:roadLift", nil)
+                undone = undone + 1
+            end
         end
     end
     if undone > 0 then
-        outputDebugString("[lc_hq_buildings] undid " .. undone .. " old road lifts", 0)
-        triggerServerEvent("lc_hq:diag", localPlayer, "UNDO", undone, 0)
+        outputDebugString("[lc_hq_buildings] restored " .. undone .. " lifted road tiles", 0)
     end
 end
 
-local function fixRoadCoplanarity()
-    -- Idempotent: undo any earlier (larger) lift first, then re-apply the
-    -- smallest nudge that still breaks exact coplanarity. The old 0.06-0.12 m
-    -- lift made road tiles visibly overlap kerbs/city geometry; 0.01-0.02 m
-    -- is enough to kill z-fighting without a visible step.
-    undoOldRoadLift()
-    local cells, entries = {}, {}
-    local CELL = 32
-    for _, e in ipairs(getElementsByType("building")) do
-        local id = tostring(getElementID(e) or ""):lower()
-        if id:find("^rd_") or id:find("road") then
-            local x, y, z = getElementPosition(e)
-            if math.abs(x) < 3000 and math.abs(y) < 3000 and z < 45 then
-                local entry = { e = e, id = id, x = x, y = y, z = z, lift = 0 }
-                local key = math.floor(x / CELL) .. "," .. math.floor(y / CELL)
-                cells[key] = cells[key] or {}
-                cells[key][#cells[key] + 1] = entry
-                entries[#entries + 1] = entry
-            end
-        end
-    end
+-- World-space XY box + top height for a thin road plate. Only Z rotation is
+-- used: every LC road tile is a flat plate and rx/ry are zero or negligible.
+local function roadBox(element)
+    local x, y, z = getElementPosition(element)
+    local x1, y1, z1, x2, y2, z2 = getElementBoundingBox(element)
+    if not x1 then return nil end
+    local height = math.abs(z2 - z1)
+    if height > 2.5 then return nil end
 
-    for _, entry in ipairs(entries) do
-        local cx, cy = math.floor(entry.x / CELL), math.floor(entry.y / CELL)
-        for ox = -1, 1 do
-            for oy = -1, 1 do
-                for _, other in ipairs(cells[(cx + ox) .. "," .. (cy + oy)] or {}) do
-                    if other ~= entry and other.id > entry.id
-                        and math.abs(other.z - entry.z) < 0.05 then
-                        local dx, dy = other.x - entry.x, other.y - entry.y
-                        if dx * dx + dy * dy < 24 * 24 then
-                            entry.lift = math.min(entry.lift + 0.01, 0.02)
+    local halfW, halfD = math.abs(x2 - x1) / 2, math.abs(y2 - y1) / 2
+    if halfW < 2 or halfD < 2 then return nil end
+    local cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
+    local _, _, rz = getElementRotation(element)
+    rz = math.rad(rz or 0)
+    local c, s = math.cos(rz), math.sin(rz)
+    local ex = math.abs(c) * halfW + math.abs(s) * halfD
+    local ey = math.abs(s) * halfW + math.abs(c) * halfD
+    return {
+        element = element,
+        id = tostring(getElementID(element) or ""),
+        x0 = x + cx - ex, x1 = x + cx + ex,
+        y0 = y + cy - ey, y1 = y + cy + ey,
+        top = z + math.max(z1, z2),
+        bottom = z + math.min(z1, z2),
+    }
+end
+
+local function overlaps(a, b)
+    local dx = math.min(a.x1, b.x1) - math.max(a.x0, b.x0)
+    local dy = math.min(a.y1, b.y1) - math.max(a.y0, b.y0)
+    return dx > 0.5 and dy > 0.5
+end
+
+local function fixRoadCoplanarity()
+    undoRoadLift()
+
+    local CELL = 16
+    local cells, entries = {}, {}
+    for _, elementType in ipairs({ "building", "object" }) do
+        for _, element in ipairs(getElementsByType(elementType)) do
+            local box = roadBox(element)
+            if box then
+                local id = box.id:lower()
+                if id:find("^rd_") or id:find("road", 1, true) or id:find("street", 1, true) then
+                    local x, y = getElementPosition(element)
+                    if math.abs(x) < 3000 and math.abs(y) < 3000 then
+                        entries[#entries + 1] = box
+                        for ix = math.floor(box.x0 / CELL), math.floor(box.x1 / CELL) do
+                            for iy = math.floor(box.y0 / CELL), math.floor(box.y1 / CELL) do
+                                local key = ix .. "," .. iy
+                                cells[key] = cells[key] or {}
+                                cells[key][#cells[key] + 1] = box
+                            end
                         end
                     end
                 end
@@ -230,25 +333,51 @@ local function fixRoadCoplanarity()
     end
 
     local lifted = 0
-    for _, entry in ipairs(entries) do
-        if entry.lift > 0 and not getElementData(entry.e, "lc_hq:roadLift") then
-            setElementData(entry.e, "lc_hq:roadLift", entry.lift)
-            setElementPosition(entry.e, entry.x, entry.y, entry.z + entry.lift)
-            lifted = lifted + 1
+    for _, list in pairs(cells) do
+        for i = 1, #list do
+            for j = i + 1, #list do
+                local a, b = list[i], list[j]
+                if a.element ~= b.element
+                    and math.abs(a.top - b.top) < 0.012
+                    and overlaps(a, b) then
+                    -- Lift only the lexicographically later plate of the pair.
+                    local target = nil
+                    if a.id > b.id or (a.id == b.id and tostring(a.element) > tostring(b.element)) then
+                        target = a
+                    else
+                        target = b
+                    end
+                    if target and not getElementData(target.element, "lc_hq:roadLift") then
+                        local x, y, z = getElementPosition(target.element)
+                        local amount = math.min(ROAD_LIFT, ROAD_LIFT_LIMIT)
+                        setElementData(target.element, "lc_hq:roadLift", amount)
+                        setElementPosition(target.element, x, y, z + amount)
+                        lifted = lifted + 1
+                    end
+                end
+            end
         end
     end
+
     if lifted > 0 then
-        outputDebugString("[lc_hq_buildings] road z-fight guard lifted " .. lifted .. " tiles", 0)
+        outputDebugString("[lc_hq_buildings] road z-fight guard lifted " .. lifted .. " of " .. #entries .. " road plates by 8 mm", 0)
         triggerServerEvent("lc_hq:diag", localPlayer, "ROADLIFT", lifted, #entries)
     end
 end
 
--- LC is streamed in asynchronously and can take 90+ seconds on a cold client.
--- Running the LOD / road-lift fixes on a fixed timer saw zero buildings, so
--- they silently did nothing. Poll until the map is actually present, then run
--- both fixes exactly once.
+-- ---------------------------------------------------------------------------
+-- World readiness
+-- ---------------------------------------------------------------------------
+-- LC streams asynchronously and can take 90+ s on a cold client. Run the
+-- fixes once the building count is stable, then re-check slowly for elements
+-- that streamed in later. Both routines are idempotent.
 local worldFixDone = false
 local lastCount, stablePolls = 0, 0
+
+local function runWorldFixes()
+    enforceLODDistance()
+    fixRoadCoplanarity()
+end
 
 local function waitForWorld(attempt)
     if worldFixDone then return end
@@ -260,28 +389,16 @@ local function waitForWorld(attempt)
             stablePolls = 0
         end
         lastCount = count
-        -- Wait for two identical consecutive polls so the map has finished
-        -- creating elements before we scan them.
         if stablePolls >= 2 then
             worldFixDone = true
-            enforceLODDistance()
-            fixRoadCoplanarity()
+            runWorldFixes()
             triggerServerEvent("lc_hq:diag", localPlayer, "WORLDREADY", count, attempt)
-            -- Re-apply every 30s in case LC is reloaded or more elements stream in.
-            -- lodApplied is intentionally kept so higher vegetation targets are
-            -- not lost on a later pass.
-            setTimer(function()
-                enforceLODDistance()
-                fixRoadCoplanarity()
-            end, 30000, 0)
+            setTimer(runWorldFixes, 60000, 0)
             return
         end
     end
     if attempt >= 200 then
-        -- Last resort: never leave the map in the overlapping state just
-        -- because the element count never stabilised exactly.
-        enforceLODDistance()
-        fixRoadCoplanarity()
+        runWorldFixes()
         triggerServerEvent("lc_hq:diag", localPlayer, "WORLDTIMEOUT", count, attempt)
         return
     end
@@ -289,7 +406,8 @@ local function waitForWorld(attempt)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function()
-    undoOldRoadLift() -- clear the old visible city/road overlap right away
+    -- Remove any lift applied by an older build immediately.
+    undoRoadLift()
     setTimer(applyDetailShader, 1500, 1)
     setTimer(waitForWorld, 1500, 1, 1)
 end)
@@ -299,5 +417,15 @@ addEventHandler("onClientResourceStop", resourceRoot, function()
         if isElement(shader) then destroyElement(shader) end
     end
     created = {}
-    lodApplied = {}
+
+    -- Restore every model distance that was changed, then drop all state.
+    if type(engineSetModelLODDistance) == "function" then
+        for model, dist in pairs(originalLOD) do
+            pcall(engineSetModelLODDistance, model, dist, true)
+        end
+    end
+    originalLOD = {}
+    appliedLOD = {}
+
+    undoRoadLift()
 end)
