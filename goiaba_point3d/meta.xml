@@ -1,0 +1,26 @@
+<meta>
+
+
+
+    <info author='Caio Developer' />
+
+
+
+    <script src = 'client.lua' cache = 'false' type = 'client' />
+
+    <script src = 'server.lua' type = 'server' />
+
+
+
+    <file src = 'assets/fonts/bold.ttf' />
+
+    <file src = 'assets/fonts/regular.ttf' />
+
+
+
+    <file src = 'assets/images/fundo.png' />
+<file src = 'assets/images/loc.png' />
+<file src = 'assets/images/gb.png' />
+
+
+</meta>
