@@ -16,10 +16,10 @@
 ]]
 
 local QUALITY = {
-    low =    { post = false, skyRes = 1, rain = 0,   wet = false, far = 0.52, fog = 0.65, postScale = 0.00 },
-    medium = { post = true,  skyRes = 1, rain = 90,  wet = true,  far = 0.75, fog = 0.85, postScale = 0.80 },
-    high =   { post = true,  skyRes = 2, rain = 220, wet = true,  far = 1.00, fog = 1.00, postScale = 1.00 },
-    ultra =  { post = true,  skyRes = 2, rain = 360, wet = true,  far = 1.12, fog = 1.10, postScale = 1.15 },
+    low =    { post = false, skyRes = 1, rain = 0,   wet = false, puddles = 0.00, far = 0.52, fog = 0.65, postScale = 0.00 },
+    medium = { post = true,  skyRes = 1, rain = 90,  wet = true,  puddles = 0.35, far = 0.75, fog = 0.85, postScale = 0.80 },
+    high =   { post = true,  skyRes = 2, rain = 220, wet = true,  puddles = 0.75, far = 1.00, fog = 1.00, postScale = 1.00 },
+    ultra =  { post = true,  skyRes = 2, rain = 360, wet = true,  puddles = 1.00, far = 1.12, fog = 1.10, postScale = 1.15 },
 }
 local QUALITY_ORDER = { "low", "medium", "high", "ultra" }
 local AUTO_MAX_INDEX = 3 -- HIGH; ULTRA is manual only
@@ -29,13 +29,13 @@ local DEFAULT_STATE = {
     label = "Sunny",
     weather = 0,
     rain = 0.0,
-    fog = 2400,
-    farClip = 3400,
+    fog = 2600,
+    farClip = 3800,
     sky = "sunny",
     tint = { 1.00, 1.00, 1.00 },
-    haze = 0.10,
-    hazeColor = { 0.72, 0.83, 0.95 },
-    post = { saturation = 1.10, contrast = 1.07, brightness = 1.00, tint = { 1.03, 1.00, 0.97 }, vignette = 0.14, grain = 0.008, sharpen = 0.16, bloom = 0.10 },
+    haze = 0.03,
+    hazeColor = { 0.78, 0.88, 0.98 },
+    post = { saturation = 1.06, contrast = 1.04, brightness = 1.00, tint = { 1.00, 1.00, 1.00 }, vignette = 0.08, grain = 0.002, sharpen = 0.14, bloom = 0.06 },
     lightning = false,
     night = false,
     transition = 0,
@@ -78,10 +78,10 @@ local targetSkyKey = nil
 local skyRes = 1
 local currentTint = { 1, 1, 1 }
 local targetTint = { 1, 1, 1 }
-local currentHaze = 0.10
-local targetHaze = 0.10
-local currentHazeColor = { 0.72, 0.83, 0.95 }
-local targetHazeColor = { 0.72, 0.83, 0.95 }
+local currentHaze = 0.03
+local targetHaze = 0.03
+local currentHazeColor = { 0.78, 0.88, 0.98 }
+local targetHazeColor = { 0.78, 0.88, 0.98 }
 local uOffset = 0
 local lastTimeCheck = 0
 local lastCloudState = nil
@@ -91,8 +91,8 @@ local envStart = 0
 local envDuration = 0
 local envFrom = nil
 local envTo = nil
-local currentFog = 2400
-local currentFar = 3400
+local currentFog = 2600
+local currentFar = 3800
 local lastAppliedFog = -1
 local lastAppliedFar = -1
 
@@ -101,15 +101,23 @@ local postShader, screenSource
 local postReady = false
 local postFailed = false
 local postEnabled = false
-local currentPost = { saturation = 1.1, contrast = 1.07, brightness = 1.0, tint = { 1, 1, 1 }, vignette = 0.14, grain = 0.008, sharpen = 0.16, bloom = 0.10 }
-local targetPost = { saturation = 1.1, contrast = 1.07, brightness = 1.0, tint = { 1, 1, 1 }, vignette = 0.14, grain = 0.008, sharpen = 0.16, bloom = 0.10 }
+local currentPost = { saturation = 1.06, contrast = 1.04, brightness = 1.0, tint = { 1, 1, 1 }, vignette = 0.08, grain = 0.002, sharpen = 0.14, bloom = 0.06 }
+local targetPost = { saturation = 1.06, contrast = 1.04, brightness = 1.0, tint = { 1, 1, 1 }, vignette = 0.08, grain = 0.002, sharpen = 0.14, bloom = 0.06 }
 
 -- wet roads
 local wetShader
 local wetActive = false
 local wetApplied = {}
 local wetUnsupported = false
-local WET_TEXTURES = { "road*", "asphalt*", "tarmac*", "highway*", "pavement*", "sidewalk*", "kerb*", "curb*" }
+local WET_TEXTURES = { "road*", "asphalt*", "tarmac*", "highway*", "pave*", "pavement*", "sidewalk*", "kerb*", "curb*" }
+-- Server-authoritative rain drives a target; the ramp itself is eased locally so
+-- the city wets gradually, stays wet for a while, then dries back to normal.
+-- Every client runs the same constants against the same synced rain value.
+local wetLevel = 0
+local wetTarget = 0
+local wetLastTick = getTickCount()
+local wetOptions = { wet = true, reflections = true, rain = true }
+local wetTime = 0
 
 -- rain
 local rainDrops = {}
@@ -299,8 +307,12 @@ local function effectiveSkyKey(s, hour)
     if hour >= 20 or hour < 5 then return "night" end
     local base = s.sky or "sunny"
     if base == "sunny" or base == "cloudy" then
-        if hour >= 5 and hour < 7 then return "dawn" end
-        if hour >= 17 and hour < 20 then return "sunset" end
+        -- Keep the warm panoramas to a short sliver around the horizon.
+        -- They used to cover 5-7 and 17-20, so a 19:01 session rendered the
+        -- whole city through an orange sunset sky. Outside these windows the
+        -- neutral sunny/cloudy panorama with a 1:1 tint is used.
+        if hour >= 5.0 and hour < 5.75 then return "dawn" end
+        if hour >= 19.33 and hour < 20.0 then return "sunset" end
     end
     return base
 end
@@ -412,10 +424,46 @@ local function removeWet()
     wetActive = false
 end
 
+-- Prefer the server-published rain value so all players see the same weather.
+local function syncedRain()
+    local rain = tonumber(weatherState.rain)
+    if rain == nil then rain = tonumber(getRainLevel()) or 0 end
+    return clamp(rain, 0, 1)
+end
+
+-- Wetness ramp: rain soaks the road faster than the road dries afterwards.
+local function updateWetRamp()
+    local now = getTickCount()
+    local dt = clamp((now - wetLastTick) / 1000, 0, 0.25)
+    wetLastTick = now
+    wetTime = wetTime + dt
+
+    local rain = syncedRain()
+    if not wetOptions.wet then rain = 0 end
+    wetTarget = clamp(rain, 0, 1)
+
+    local rate
+    if wetTarget > wetLevel then
+        -- wetting: ~9s from dry to fully soaked in steady heavy rain
+        rate = 0.115 * (0.55 + 0.45 * wetTarget)
+    else
+        -- drying: ~55s after the rain stops, slower when it was very wet
+        rate = 0.018 + 0.008 * wetLevel
+    end
+    local diff = wetTarget - wetLevel
+    local step = rate * dt
+    if math.abs(diff) <= step then
+        wetLevel = wetTarget
+    else
+        wetLevel = wetLevel + (diff > 0 and step or -step)
+    end
+    wetLevel = clamp(wetLevel, 0, 1)
+end
+
 local function updateWet(active)
     if wetUnsupported then return end
     local q = QUALITY[effectiveQuality] or QUALITY.medium
-    active = active and q.wet and outside
+    active = active and q.wet and outside and wetOptions.wet
 
     if not active then
         removeWet()
@@ -448,8 +496,12 @@ local function updateWet(active)
         wetActive = true
     end
 
-    local rain = tonumber(getRainLevel()) or 0
-    dxSetShaderValue(wetShader, "wetness", clamp(rain, 0, 1))
+    local q = QUALITY[effectiveQuality] or QUALITY.medium
+    local night = (tonumber(currentHour) or 12) >= 19 or (tonumber(currentHour) or 12) < 6
+    dxSetShaderValue(wetShader, "wetness", wetLevel)
+    dxSetShaderValue(wetShader, "puddles", wetOptions.reflections and (q.puddles or 0) or 0)
+    dxSetShaderValue(wetShader, "night", night and 1 or 0)
+    dxSetShaderValue(wetShader, "timeSec", wetTime)
 end
 
 -- ============================================================
@@ -758,8 +810,14 @@ local function updateFrame()
         lastTimeCheck = nowTick
     end
 
-    if wetActive then
-        dxSetShaderValue(wetShader, "wetness", clamp(getRainLevel() or 0, 0, 1))
+    updateWetRamp()
+    if wetActive and isElement(wetShader) then
+        local q = QUALITY[effectiveQuality] or QUALITY.medium
+        local night = (tonumber(currentHour) or 12) >= 19 or (tonumber(currentHour) or 12) < 6
+        dxSetShaderValue(wetShader, "wetness", wetLevel)
+        dxSetShaderValue(wetShader, "puddles", wetOptions.reflections and (q.puddles or 0) or 0)
+        dxSetShaderValue(wetShader, "night", night and 1 or 0)
+        dxSetShaderValue(wetShader, "timeSec", wetTime)
     end
 end
 
@@ -812,7 +870,7 @@ local function renderSky()
 end
 
 local function renderRain()
-    if not outside or rainCount <= 0 then return end
+    if not wetOptions.rain or not outside or rainCount <= 0 then return end
     local rain = tonumber(getRainLevel()) or 0
     if rain < 0.02 then return end
 
@@ -901,7 +959,7 @@ local function onWorldChanged(isOutside)
         applyFogNow(true)
         setSkyTarget(effectiveSkyKey(weatherState, currentHour), 3)
         ensureRainDrops((QUALITY[effectiveQuality] or QUALITY.medium).rain)
-        updateWet((tonumber(getRainLevel()) or 0) > 0.05)
+        updateWet(syncedRain() > 0.01 or wetLevel > 0.05)
         requestAll()
     else
         removeWet()
@@ -944,9 +1002,28 @@ end
 addEvent("luxuryGraphics:quality", true)
 addEvent("luxuryGraphics:request", false)
 addEvent("luxuryGraphics:setQuality", false)
+addEvent("luxuryGraphics:setOption", true)
 
 addEventHandler("luxuryGraphics:quality", root, function(quality, auto)
     setQuality(quality, auto == true, true)
+end)
+
+-- Options are driven by the standalone graphics panel. They only switch
+-- effects this resource already owns; no second shader/weather authority.
+addEventHandler("luxuryGraphics:setOption", root, function(key, value)
+    local on = (value == true)
+    if key == "wet" then
+        wetOptions.wet = on
+        if not on then removeWet() end
+    elseif key == "reflections" then
+        wetOptions.reflections = on
+    elseif key == "rain" then
+        wetOptions.rain = on
+        if not on then
+            rainVolumeTarget = 0
+            if isElement(rainSound) then setSoundVolume(rainSound, 0) end
+        end
+    end
 end)
 
 -- The weather resource owns the "luxuryWeather:state" event registration.
@@ -1050,7 +1127,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
 
     setTimer(checkWorld, 500, 0)
     setTimer(function()
-        if outside then updateWet((tonumber(getRainLevel()) or 0) > 0.05) end
+        if outside then updateWet(syncedRain() > 0.01 or wetLevel > 0.05) end
     end, 700, 0)
     setTimer(requestAll, 1500, 1)
     setTimer(function()
