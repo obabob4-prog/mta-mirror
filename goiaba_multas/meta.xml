@@ -1,0 +1,52 @@
+<meta>  
+
+    
+
+    <info author = 'discord.gg/nRQJ52wwuR ou dc: pedrodeveloper' name = 'GOIABA - MULTAS'/>
+
+    <script src = 'LDg.lua'  type = 'shared' cache = 'false'/>
+
+    <script src = 'assets/main/LDc.lua' type = 'client' cache = 'false'/>
+
+    <script src = 'assets/main/LDs.lua' type = 'server'/>
+
+
+
+    <file   src = 'assets/images/bg.png'/>
+
+    <file   src = 'assets/images/bg2.png'/>
+
+    <file   src = 'assets/images/exit.png'/>
+
+    <file   src = 'assets/images/logo.png'/>
+
+    <file   src = 'assets/images/search.png'/>
+
+    <file   src = 'assets/images/diamond.png'/>
+
+    <file   src = 'assets/images/description.png'/>
+
+    <file   src = 'assets/images/circle.png'/>
+
+    <file   src = 'assets/images/circle2.png'/>
+
+
+
+    <file   src = 'assets/fonts/regular.ttf'/>
+
+    <file   src = 'assets/fonts/medium.ttf'/>
+
+    <file   src = 'assets/fonts/sbold.ttf'/>
+
+    <file   src = 'assets/fonts/bold.ttf'/>
+
+
+    <export function = 'addPlayerFine' type = 'server' />
+
+
+
+	<min_mta_version server="1.5.4-9.11342"/>
+
+
+
+</meta>
