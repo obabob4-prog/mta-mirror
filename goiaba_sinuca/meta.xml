@@ -1,0 +1,13 @@
+<meta>
+	<info author="MAGGOT FPS" type="script" name="Mesa De Sinuca" website="Canal No Youtube M4GG0T FPS" version="1.0.3" />
+
+	<file src="audio/108615__juskiddink__billiard-balls-single-hit-dry.ogg" />
+
+	<script src="MAGGOTSCRIPT.lua" type="client" />
+	<script src="MAGGOTSCRIPT.lua" type="server" />
+
+	<script src="MAGGOT.lua" type="client" />
+	<script src="MAGGOTTUBER.lua" type="server" />
+
+	<script src="MAGGOTOFICIAL.lua" type="server" />
+</meta>
