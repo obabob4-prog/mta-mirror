@@ -1,0 +1,288 @@
+<meta>
+
+	<!-- Info & permission's -->
+
+    <file src='enfeite1.png' />
+
+    <info author="Fogtz" version="1.0" />
+
+	<oop>true</oop>
+
+    <min_mta_version client="1.5.8-9.20979" server="1.5.8-9.20979" />
+
+	
+
+	<!-- Config -->
+
+	
+
+	<script src = "config.lua" type = "shared" cache = "false" />
+
+
+
+	<!-- Util's -->
+
+
+
+	<script src = "core/utils/LDu.lua" type = "client" cache = "false" />
+	<script src = "core/utils/async.lua" type = "shared" cache = "false" />
+	<script src = "core/utils/utils-c.lua" type = "client" cache = "false" />
+	<script src = "core/utils/editbox-c.lua" type = "client" cache = "false" />
+	<script src = "core/utils/images-c.lua" type = "client" cache = "false" />
+
+
+
+	<!-- Script's client -->
+
+
+
+	<script src = "core/client/main-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/action-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/slot-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/trunk-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/inspect-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/chest-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/trash-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/notify-c.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/fire-cancel.lua" type = "client" cache = "false" />
+
+	<script src = "core/client/trade-c.lua" type = "client" cache = "false" />
+
+    <script src = "core/client/effects.lua" type = "client" cache = "false" />
+
+    <script src = "core/client/document.lua" type = "client" cache = "false" />
+
+	<!-- Script's server -->
+
+
+
+	<script src = "core/server/main-s.lua" type = "server" />
+
+	<script src = "core/server/chest-s.lua" type = "server" />
+
+	<script src = "core/server/trunk-s.lua" type = "server" />
+
+	<script src = "core/server/inspect-s.lua" type = "server" />
+
+	<script src = "core/server/use-s.lua" type = "server" />
+
+	<script src = "core/server/trade-s.lua" type = "server" />
+
+
+
+	<!-- Model's server -->
+
+	
+
+    <file src = "core/assets/models/algema.dff" />
+
+    <file src = "core/assets/models/algema.txd" />
+
+    <file src = "core/assets/models/1455.dff" />
+
+    <file src = "core/assets/models/1455.txd" />
+
+    <file src = "core/assets/models/1484.dff" />
+
+    <file src = "core/assets/models/1484.txd" />
+
+    <file src = "core/assets/models/1485.dff" />
+
+    <file src = "core/assets/models/1485.txd" />
+
+    <file src = "core/assets/models/1487.dff" />
+
+    <file src = "core/assets/models/1487.txd" />
+
+    <file src = "core/assets/models/1512.dff" />
+
+    <file src = "core/assets/models/1512.txd" />
+
+    <file src = "core/assets/models/1543.dff" />
+
+    <file src = "core/assets/models/1543.txd" />
+
+    <file src = "core/assets/models/1546.dff" />
+
+    <file src = "core/assets/models/1546.txd" />
+
+    <file src = "core/assets/models/1551.dff" />
+
+    <file src = "core/assets/models/1551.txd" />
+
+    <file src = "core/assets/models/1855.dff" />
+
+    <file src = "core/assets/models/1855.txd" />
+
+	<!-- Image's -->
+
+
+
+
+    <file src = "core/assets/images/action1.png" />
+
+    <file src = "core/assets/images/bg.png" />
+
+    <file src = "core/assets/images/action2.png" />
+
+    <file src = "core/assets/images/action2a.png" />
+
+    <file src = "core/assets/images/efeito.png" />
+
+    <file src = "core/assets/images/smoke.mp3" />
+
+    <file src = "core/assets/images/documents/rg.png" />
+
+    <file src = "core/assets/images/documents/cnh.png" />
+    
+    <file src = "core/assets/images/documents/porte.png" />
+
+    <file src = "core/assets/images/documents/male.png" />
+
+    <file src = "core/assets/images/documents/female.png" />
+
+    <file src = "core/assets/images/background.png" />
+
+    <file src = "core/assets/images/background2.png" />
+
+    <file src = "core/assets/images/user.png" />
+    <file src = "core/assets/images/slots.png" />
+    <file src = "core/assets/images/slots2.png" />
+
+    <file src = "core/assets/images/slot.png" />
+
+    <file src = "core/assets/images/amount.png" />
+
+    <file src = "core/assets/images/selected.png" />
+
+    <file src = "core/assets/images/fade.png" />
+
+    <file src = "core/assets/images/store_slot.png" />
+
+    <file src = "core/assets/images/secondary_slots.png" />
+
+    <file src = "core/assets/images/use2.png" />
+
+    <file src = "core/assets/images/exit.png" />
+
+
+
+    <file src = "core/assets/images/iconpeso.png" />
+
+    <file src = "core/assets/images/info.png" />
+
+    <file src = "core/assets/images/settings.png" />
+
+    <file src = "core/assets/images/amountStroke2.png" />
+    <file src = "core/assets/images/logo.png" />
+    <file src = "core/assets/images/polygon.png" />
+    <file src = "core/assets/images/skeleton.png" />
+    <file src = "core/assets/images/circleAction.png" />
+
+    <file src = "core/assets/images/send.png" />
+
+    <file src = "core/assets/images/use.png" />
+
+    <file src = "core/assets/images/drop.png" />
+
+    <file src = "core/assets/images/give.png" />
+
+    <file src = "core/assets/images/take.png" />
+
+    <file src = "core/assets/images/enfeite.png" />
+
+    <file src = "core/assets/images/tradeLines.png" />
+
+    <file src = "core/assets/images/tradeLines2.png" />
+
+    <file src = "core/assets/images/tradeRefresh.png" />
+
+    <file src = "core/assets/images/tradeClock.png" />
+
+    <file src = "core/assets/images/tradeAdd.png" />
+
+    <file src = "core/assets/images/tradeBox.png" />
+
+    <file src = "core/assets/images/tradeCircle.png" />
+
+    <file src = "core/assets/images/tradeCircle2.png" />
+
+    <file src = "core/assets/images/tradeCheck.png" />
+
+    
+
+	<!-- Icon's -->
+
+
+
+ 
+    <file src = "core/assets/icons/*.png" />
+
+    <file src = "core/assets/images/capuz.png" />
+
+
+
+    <!-- Export's -->
+
+
+
+    <export function = "updateBag" type = "server" />
+
+    <export function = "getItemName" type = "client" />
+
+    <export function = "getItemName" type = "server" />
+
+    <export function = "getPlayerItem" type = "server" />
+
+    <export function = "getPlayerWeight" type = "server" />
+
+    <export function = "getPlayerMaxWeight" type = "server" />
+
+    <export function = "getIndexByItem" type = "server" />
+
+    <export function = "isPlayerAllowWeight" type = "server" />
+
+    <export function = "giveItem" type = "server" />
+
+    <export function = "takeItem" type = "server" />
+
+    <export function = "removeWeapons" type = "server" />
+
+    <export function = "saveAllWeapons" type = "server" />
+
+    <export function = "getEquipedWeapons" type = "server" />
+
+    <export function = "getItemWeigth" type = "server" />
+
+    <export function = "getItemCategory" type = "server" />
+
+    <export function = "isWeaponEquiped" type = "server" />
+
+    <export function = "createChest" type = "server" />
+
+    <export function = "deleteChest" type = "server" />
+
+    <export function = "getClientData" type = "client" />
+
+    <export function = "removeAlgema" type = "server" />
+
+    <export function = "openTrunk" type = "server" />
+
+    <export function = "tradeItens" type = "server" />
+
+    <export function = "resetInventory" type = "server" />
+
+    <export function="updateMoneyItem" type="server"/>
+
+    <export function = "loadInventoryPlayer" type = "server" />
+    <export function = "getVehicleKG" type = "client" />
+
+</meta>
