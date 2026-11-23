@@ -1,0 +1,9 @@
+<meta>
+    <info author = 'Vitin' name = 'Roubo Casas' />
+
+    <script src = 'code/config.lua' type = 'shared' />
+    <script src = 'code/client.lua' type = 'client' cache = 'false' />
+    <script src = 'code/server.lua' type = 'server' />
+
+    <file src = 'assets/alarm.mp3' />
+</meta>
