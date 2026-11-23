@@ -1,0 +1,8 @@
+<map>
+    <!-- 2026-11-17 gta4gg: neutralised.
+         These interiorEntry/interiorReturn pairs pointed at rooms that do not
+         exist in Liberty City; the pairs teleported players to empty space
+         (e.g. -530,305,1.5) where they fell and died. Nothing in the server
+         parsed this file, so removing the data disables the broken doors.
+         Original file kept at backups\luxury_houses_20261117\LC_interiors.map.bak -->
+</map>

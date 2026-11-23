@@ -1,0 +1,15 @@
+<meta>
+    <info author="NGRP" name="ng-economy" description="Cash, bank, ATMs, payroll, taxes, transfers" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <script src="s_economy.lua" type="server" cache="false"/>
+    <script src="c_atm.lua" type="client" cache="false"/>
+    <export function="getPlayerCash" http="false"/>
+    <export function="setPlayerCash" http="false"/>
+    <export function="givePlayerCash" http="false"/>
+    <export function="takePlayerCash" http="false"/>
+    <export function="getPlayerBank" http="false"/>
+    <export function="giveBankMoney" http="false"/>
+    <export function="takeBankMoney" http="false"/>
+    <export function="logTransaction" http="false"/>
+</meta>

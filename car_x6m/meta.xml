@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] BMW X6M F86" author="3DStarving vk.com/1platinum_motorsport" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/huntley.dff" />
+    <file src="models/huntley.txd" />
+</meta>

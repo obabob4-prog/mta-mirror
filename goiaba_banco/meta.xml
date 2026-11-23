@@ -1,0 +1,50 @@
+<meta>
+
+
+
+    <info author = 'discord.gg/XBXNPtBTsm ou dc: pedrodeveloper' name = 'GOIABA - BANCO'/>
+
+    <script src = 'LDg.lua'  type = 'shared' cache = 'false' />
+    <script src = 'assets/main/LDc.lua' type = 'client' cache = 'false'/>
+    <script src = 'assets/main/LDs.lua' type = 'server'/>
+
+    <file   src = 'assets/images/bg.png'/>
+    <file   src = 'assets/images/logo.png'/>
+    <file   src = 'assets/images/windowRectangle.png'/>
+    <file   src = 'assets/images/card.png'/>
+    <file   src = 'assets/images/mastercard.png'/>
+    <file   src = 'assets/images/eye.png'/>
+    <file   src = 'assets/images/eye2.png'/>
+    <file   src = 'assets/images/windows.png'/>
+    <file   src = 'assets/images/amount.png'/>
+    <file   src = 'assets/images/negative.png'/>
+    <file   src = 'assets/images/positive.png'/>
+    <file   src = 'assets/images/scroll.png'/>
+    <file   src = 'assets/images/scroll2.png'/>
+    <file   src = 'assets/images/visa.png'/>
+
+    <file   src = 'assets/images/tax/stroke.png'/>
+    <file   src = 'assets/images/tax/rectangle.png'/>
+    <file   src = 'assets/images/tax/card.png'/>
+    <file   src = 'assets/images/tax/button.png'/>
+    <file   src = 'assets/images/tax/check.png'/>
+    <file   src = 'assets/images/tax/other.png'/>
+    <file   src = 'assets/images/tax/scroll.png'/>
+    <file   src = 'assets/images/tax/scroll2.png'/>
+
+    <file   src = 'assets/images/windows/1.png'/>
+    <file   src = 'assets/images/windows/2.png'/>
+    <file   src = 'assets/images/windows/3.png'/>
+    <file   src = 'assets/images/windows/4.png'/>
+    <file   src = 'assets/images/windows/rectangle.png'/>
+    <file   src = 'assets/images/windows/stroke.png'/>
+
+    <export function = 'loadBankPlayer' type = 'server'/>
+    <export function = 'setPlayerBalance' type = 'server'/>
+    <export function = 'getPlayerVIPDiscountTax' type = 'server'/>
+    <export function = 'addRegister' type = 'server' />
+    <export function = 'loadPlayerTaxes' type = 'server' />
+
+	<min_mta_version server="1.6.0-9.21765" client="1.6.0-9.21765"/>
+
+</meta> 

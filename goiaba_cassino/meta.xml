@@ -1,0 +1,403 @@
+<meta>  
+
+    
+
+    <info author = 'discord.gg/XBXNPtBTsm ou dc: pedrodeveloper' name = 'GOIABA - CASSINO'/>
+
+
+
+    <script src = 'LDg.lua'  type = 'shared' cache = 'false'/>
+
+    <script src = 'assets/main/LDc.lua' type = 'client' cache = 'false'/>
+
+    <script src = 'assets/main/LDs.lua' type = 'server'/>
+
+
+
+    <file   src = 'assets/sounds/empate.mp3'/>
+
+    <file   src = 'assets/sounds/explosao.mp3'/>
+
+    <file   src = 'assets/sounds/ganhou.mp3'/>
+
+    <file   src = 'assets/sounds/perdeu.mp3'/>
+
+    <file   src = 'assets/sounds/success.mp3'/>
+
+    <file   src = 'assets/sounds/music.mp3'/>
+
+    <file   src = 'assets/sounds/horses.mp3'/>
+
+
+
+    <file   src = 'assets/images/bg.png'/>
+
+    <file   src = 'assets/images/title.png'/>
+
+    <file   src = 'assets/images/arrow.png'/>
+
+    <file   src = 'assets/images/exit.png'/>
+
+    <file   src = 'assets/images/balanceEdit.png'/>
+
+    <file   src = 'assets/images/clearEdit.png'/>
+
+    <file   src = 'assets/images/bordedLine.png'/>
+
+
+
+    <file   src = 'assets/images/touro/bg.png'/>
+
+    <file   src = 'assets/images/touro/win.png'/>
+
+
+
+    <file   src = 'assets/images/touro/icons/1.png'/>
+
+    <file   src = 'assets/images/touro/icons/2.png'/>
+
+    <file   src = 'assets/images/touro/icons/3.png'/>
+
+    <file   src = 'assets/images/touro/icons/4.png'/>
+
+    <file   src = 'assets/images/touro/icons/5.png'/>
+
+    <file   src = 'assets/images/touro/icons/6.png'/>
+
+    <file   src = 'assets/images/touro/icons/wild.png'/>
+
+
+
+    <file   src = 'assets/images/double/rectangle.png'/>
+
+    <file   src = 'assets/images/double/x.png'/>
+
+    <file   src = 'assets/images/double/clock.png'/>
+
+    <file   src = 'assets/images/double/gray.png'/>
+
+    <file   src = 'assets/images/double/green.png'/>
+
+    <file   src = 'assets/images/double/white.png'/>
+
+    <file   src = 'assets/images/double/white2.png'/>
+
+    <file   src = 'assets/images/double/arrows.png'/>
+
+    <file   src = 'assets/images/double/lastSpins.png'/>
+
+    
+
+    <file   src = 'assets/images/double/infos/green.png'/>
+
+    <file   src = 'assets/images/double/infos/gray.png'/>
+
+    <file   src = 'assets/images/double/infos/white.png'/>
+
+
+
+    <file   src = 'assets/images/mines/rectangle.png'/>
+
+    <file   src = 'assets/images/mines/trophy.png'/>
+
+    <file   src = 'assets/images/mines/logoWhite.png'/>
+
+    <file   src = 'assets/images/mines/bomb.png'/>
+
+    <file   src = 'assets/images/mines/diamond.png'/>
+
+
+
+    <file   src = 'assets/images/blackjack/green.png'/>
+
+    <file   src = 'assets/images/blackjack/white.png'/>
+
+    <file   src = 'assets/images/blackjack/cardsStroke.png'/>
+
+    <file   src = 'assets/images/blackjack/title.png'/>
+
+
+
+    <file   src = 'assets/images/blackjack/cards/ouros/1.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/2.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/3.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/4.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/5.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/6.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/7.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/8.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/9.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/10.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/j.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/q.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/ouros/k.png'/>
+
+
+
+    <file   src = 'assets/images/blackjack/cards/paus/1.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/2.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/3.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/4.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/5.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/6.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/7.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/8.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/9.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/10.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/j.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/q.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/paus/k.png'/>
+
+
+
+    <file   src = 'assets/images/blackjack/cards/espadas/1.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/2.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/3.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/4.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/5.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/6.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/7.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/8.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/9.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/10.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/j.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/q.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/espadas/k.png'/>
+
+
+
+    <file   src = 'assets/images/blackjack/cards/copas/1.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/2.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/3.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/4.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/5.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/6.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/7.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/8.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/9.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/10.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/j.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/q.png'/>
+
+    <file   src = 'assets/images/blackjack/cards/copas/k.png'/>
+
+
+
+    <file   src = 'assets/images/crash/rectangle.png'/>
+
+    <file   src = 'assets/images/crash/plane.png'/>
+
+    <file   src = 'assets/images/crash/line.png'/>
+
+    
+
+    <file   src = 'assets/images/horse/bg.png'/>
+
+    <file   src = 'assets/images/horse/title.png'/>
+
+    <file   src = 'assets/images/horse/rectangle.png'/>
+
+    <file   src = 'assets/images/horse/rectangleEffect.png'/>
+
+    <file   src = 'assets/images/horse/betRectangle.png'/>
+
+    <file   src = 'assets/images/horse/betTitle.png'/>
+
+    <file   src = 'assets/images/horse/arrow.png'/>
+
+    <file   src = 'assets/images/horse/arrowEffect.png'/>
+
+    <file   src = 'assets/images/horse/blur.png'/>
+
+    <file   src = 'assets/images/horse/leaderRectangle.png'/>
+
+    <file   src = 'assets/images/horse/leaderRectangle2.png'/>
+
+    <file   src = 'assets/images/horse/leaderRectangle3.png'/>
+
+    
+
+    <file   src = 'assets/images/icons/1.png'/>
+
+    <file   src = 'assets/images/icons/2.png'/>
+
+    <file   src = 'assets/images/icons/3.png'/>
+
+    <file   src = 'assets/images/icons/4.png'/>
+
+    <file   src = 'assets/images/icons/5.png'/>
+
+
+
+    <file   src = 'assets/images/icons2/1.png'/>
+
+    <file   src = 'assets/images/icons2/2.png'/>
+
+    <file   src = 'assets/images/icons2/3.png'/>
+
+    <file   src = 'assets/images/icons2/4.png'/>
+
+    <file   src = 'assets/images/icons2/5.png'/>
+
+
+
+    <file   src = 'assets/images/horses/1.png'/>
+
+    <file   src = 'assets/images/horses/2.png'/>
+
+    <file   src = 'assets/images/horses/3.png'/>
+
+    <file   src = 'assets/images/horses/4.png'/>
+
+    <file   src = 'assets/images/horses/5.png'/>
+
+    <file   src = 'assets/images/horses/6.png'/>
+
+    <file   src = 'assets/images/horses/7.png'/>
+
+    <file   src = 'assets/images/horses/8.png'/>
+
+
+
+    <file   src = 'assets/images/horses/1_1.png'/>
+
+    <file   src = 'assets/images/horses/1_2.png'/>
+
+    <file   src = 'assets/images/horses/1_3.png'/>
+
+    <file   src = 'assets/images/horses/1_4.png'/>
+
+    <file   src = 'assets/images/horses/1_5.png'/>
+
+    <file   src = 'assets/images/horses/1_6.png'/>
+
+    <file   src = 'assets/images/horses/1_7.png'/>
+
+    <file   src = 'assets/images/horses/1_8.png'/>
+
+
+
+    <file   src = 'assets/images/horses/2_1.png'/>
+
+    <file   src = 'assets/images/horses/2_2.png'/>
+
+    <file   src = 'assets/images/horses/2_3.png'/>
+
+    <file   src = 'assets/images/horses/2_4.png'/>
+
+    <file   src = 'assets/images/horses/2_5.png'/>
+
+    <file   src = 'assets/images/horses/2_6.png'/>
+
+    <file   src = 'assets/images/horses/2_7.png'/>
+
+    <file   src = 'assets/images/horses/2_8.png'/>
+
+
+
+    <file   src = 'assets/images/horses/3_1.png'/>
+
+    <file   src = 'assets/images/horses/3_2.png'/>
+
+    <file   src = 'assets/images/horses/3_3.png'/>
+
+    <file   src = 'assets/images/horses/3_4.png'/>
+
+    <file   src = 'assets/images/horses/3_5.png'/>
+
+    <file   src = 'assets/images/horses/3_6.png'/>
+
+    <file   src = 'assets/images/horses/3_7.png'/>
+
+    <file   src = 'assets/images/horses/3_8.png'/>
+
+
+
+    <file   src = 'assets/images/horses/4_1.png'/>
+
+    <file   src = 'assets/images/horses/4_2.png'/>
+
+    <file   src = 'assets/images/horses/4_3.png'/>
+
+    <file   src = 'assets/images/horses/4_4.png'/>
+
+    <file   src = 'assets/images/horses/4_5.png'/>
+
+    <file   src = 'assets/images/horses/4_6.png'/>
+
+    <file   src = 'assets/images/horses/4_7.png'/>
+
+    <file   src = 'assets/images/horses/4_8.png'/>
+
+
+
+    <file   src = 'assets/images/horses/5_1.png'/>
+
+    <file   src = 'assets/images/horses/5_2.png'/>
+
+    <file   src = 'assets/images/horses/5_3.png'/>
+
+    <file   src = 'assets/images/horses/5_4.png'/>
+
+    <file   src = 'assets/images/horses/5_5.png'/>
+
+    <file   src = 'assets/images/horses/5_6.png'/>
+
+    <file   src = 'assets/images/horses/5_7.png'/>
+
+    <file   src = 'assets/images/horses/5_8.png'/>
+
+
+
+    <min_mta_version server="1.5.4-9.11413" client="1.3.2" />
+
+
+
+</meta>

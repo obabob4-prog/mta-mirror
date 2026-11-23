@@ -1,0 +1,43 @@
+﻿<meta>
+    <info author="LmB" name="LmB Car Radio" description="URL-based in-car radio with DX player" version="1.0.0" />
+
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" cache="false" />
+
+    <!-- local audio files used by songs.txt -->
+    <file src="songs/youtube/_83o1qn_fxA.mp3" />
+    <file src="songs/youtube/0XrrV97xfkk.mp3" />
+    <file src="songs/youtube/1Z82k1MkIBQ.mp3" />
+    <file src="songs/youtube/1zCcj1q4IC0.mp3" />
+    <file src="songs/youtube/3JO6JlHeqhQ.mp3" />
+    <file src="songs/youtube/4s5j8cM9p5o.mp3" />
+    <file src="songs/youtube/AJY4jvjTP3g.mp3" />
+    <file src="songs/youtube/BD4fvzDcORo.mp3" />
+    <file src="songs/youtube/BMXJx9siivc.mp3" />
+    <file src="songs/youtube/bWj44rxFozM.mp3" />
+    <file src="songs/youtube/BXqoqA7fe4U.mp3" />
+    <file src="songs/youtube/Cl3WDyxmhh8.mp3" />
+    <file src="songs/youtube/cwgtjcY5ToY.mp3" />
+    <file src="songs/youtube/ijj-LaMeSs8.mp3" />
+    <file src="songs/youtube/K1qNKFxv8z0.mp3" />
+    <file src="songs/youtube/lVZS3Ad13jM.mp3" />
+    <file src="songs/youtube/mRZhFOsLCW0.mp3" />
+    <file src="songs/youtube/rdhqlSvijsI.mp3" />
+    <file src="songs/youtube/RR_xwdO1dHc.mp3" />
+    <file src="songs/youtube/TbpfwVndO_s.mp3" />
+    <file src="songs/youtube/tsDCZjr1KqU.m4a" />
+    <file src="songs/youtube/ttBhcMG4cdA.mp3" />
+    <file src="songs/youtube/TvUhV88BVKo.mp3" />
+    <file src="songs/youtube/TzSon6OGWug.mp3" />
+    <file src="songs/youtube/v0mx--tSrtA.mp3" />
+    <file src="songs/youtube/w2EdmvVn2RA.mp3" />
+    <file src="songs/youtube/w2LFVcWk6Fs.mp3" />
+    <file src="songs/youtube/W3nD8AEz1S0.mp3" />
+    <file src="songs/youtube/XBg4J2Y3IrY.mp3" />
+    <file src="songs/youtube/XigJWWH6ybo.mp3" />
+    <file src="songs/youtube/XTI3nJWdNP0.mp3" />
+    <file src="songs/youtube/ykViIUAWABQ.mp3" />
+    <file src="songs/youtube/z33qjI2pCBg.mp3" />
+    <file src="songs/youtube/ZMAVLEr7VdM.mp3" />
+    <file src="songs/youtube/IEFJ8L_gB4s.m4a" />
+</meta>

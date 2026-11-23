@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Lamborghini Murcielago LP670-4 SV" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/cheetah.dff" />
+    <file src="models/cheetah.txd" />
+</meta>

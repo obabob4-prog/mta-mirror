@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+window.onerror = function (m, s, l) {
+    try { mta.triggerEvent("gta4i:bridge", "js error: " + m + " @ " + s + ":" + l); } catch (e) {}
+    return false;
+};
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="boot">LOADING INVENTORY<div class="boot-sub">GTA V ROLEPLAY</div></div>
+<div id="app" class="hidden">
+
+    <!-- ================= header ================= -->
+    <div id="topbar">
+        <div class="brand">
+            <div class="brand-mark"></div>
+            <div>
+                <div class="brand-title">INVENTORY</div>
+                <div class="brand-sub">GTA V ROLEPLAY <span class="dot">•</span> PREMIUM</div>
+            </div>
+        </div>
+        <div class="top-actions">
+            <div class="money-chip"><span class="m-label">CASH</span><span id="t-cash" class="m-val">$0</span></div>
+            <button id="btn-phone" class="pill-btn">PHONE <kbd>P</kbd></button>
+            <button id="btn-close" class="pill-btn danger">CLOSE <kbd>ESC</kbd></button>
+        </div>
+    </div>
+
+    <!-- ================= body ================= -->
+    <div id="layout">
+
+        <!-- left rail -->
+        <aside id="rail">
+            <div class="profile">
+                <div class="avatar" id="p-avatar">JS</div>
+                <div class="p-name" id="p-name">-</div>
+                <div class="p-sub" id="p-number">-</div>
+                <div class="p-tags" id="p-tags"></div>
+            </div>
+
+            <div class="ring-wrap">
+                <svg class="ring" viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                    <circle id="ring-fill" class="ring-fill" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <div class="ring-center">
+                    <div class="ring-num" id="ring-num">0.0</div>
+                    <div class="ring-unit">KG</div>
+                    <div class="ring-max" id="ring-max">/ 50.0</div>
+                </div>
+            </div>
+
+            <div class="meter">
+                <div class="meter-row"><span>SLOTS</span><b id="m-slots">0/20</b></div>
+                <div class="meter-bar"><div id="m-slots-fill"></div></div>
+            </div>
+
+            <div class="quick-block">
+                <div class="rail-label">QUICKSLOTS <span>F2 - F6</span></div>
+                <div id="quick-slots"></div>
+            </div>
+
+            <div class="rail-hint">
+                Drag to move · drop on same item to merge · drop on quick slot to bind
+            </div>
+        </aside>
+
+        <!-- center -->
+        <main id="center">
+            <div id="filters">
+                <button class="chip on" data-f="all">ALL</button>
+                <button class="chip" data-f="food">FOOD</button>
+                <button class="chip" data-f="medical">MEDICAL</button>
+                <button class="chip" data-f="weapon">WEAPONS</button>
+                <button class="chip" data-f="tool">TOOLS</button>
+                <button class="chip" data-f="misc">MISC</button>
+                <div id="f-count" class="f-count">0 items</div>
+            </div>
+            <div id="grid-wrap"><div id="grid"></div></div>
+        </main>
+
+        <!-- right -->
+        <aside id="detail-col">
+            <div id="detail">
+                <div id="d-icon" class="d-icon empty">
+                    <svg viewBox="0 0 48 48"><path fill="currentColor" d="M24 6 6 22h4v18h28V22h4L24 6zm6 22h-4v-4h-4v4h-4v4h4v4h4v-4h4v-4z"/></svg>
+                </div>
+                <div id="d-kind" class="d-kind">-</div>
+                <div id="d-name" class="d-name">Select an item</div>
+                <div id="d-stats" class="d-stats"></div>
+
+                <div class="actions">
+                    <button id="a-use" class="act act-gold"><span class="a-ic">E</span>USE</button>
+                    <button id="a-give" class="act"><span class="a-ic">G</span>GIVE</button>
+                    <button id="a-split" class="act"><span class="a-ic">S</span>SPLIT</button>
+                    <button id="a-drop" class="act act-danger"><span class="a-ic">D</span>DROP</button>
+                </div>
+            </div>
+
+            <div id="storage" class="hidden">
+                <div class="st-head">
+                    <div class="st-tabs" id="st-tabs"></div>
+                    <div class="st-cap" id="st-cap"></div>
+                </div>
+                <div id="st-list" class="st-list"></div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- split modal -->
+    <div id="modal" class="hidden">
+        <div class="modal-box">
+            <div class="modal-title">SPLIT STACK</div>
+            <div class="modal-sub" id="modal-sub">-</div>
+            <div class="modal-input">
+                <button id="m-minus" class="m-step">−</button>
+                <input id="modal-amount" type="number" min="1" value="1">
+                <button id="m-plus" class="m-step">+</button>
+            </div>
+            <div class="modal-btns">
+                <button id="modal-cancel" class="btn dark">CANCEL</button>
+                <button id="modal-ok" class="btn">SPLIT</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toasts"></div>
+</div>
+
+<script src="icons.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

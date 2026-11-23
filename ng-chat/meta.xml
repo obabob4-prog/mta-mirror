@@ -1,0 +1,5 @@
+<meta>
+    <info author="NGRP" name="ng-chat" description="RP chat: local say, /me /do /try /b /w /r" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <script src="s_chat.lua" type="server" cache="false"/>
+</meta>

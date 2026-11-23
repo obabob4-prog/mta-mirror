@@ -1,0 +1,34 @@
+<meta>
+    <info author="wave" version="1.0" name="waveresources.com.br" description="waveresources.com.br" type="script"/>
+
+    <script src = 's.config.lua' cache = 'false' type = 'shared'/>
+    <script src = 'main/useful/animation.lua' cache = 'false' type = 'client'/>
+    <script src = 'main/useful/manager.lua' cache = 'false' type = 'client'/>
+    <script src = 'main/useful/scroll.lua' cache = 'false' type = 'client'/>
+    <script src = 'main/useful/editbox.lua' cache = 'false' type = 'client'/>
+    <script src = 'main/useful/utils.lua' cache = 'false' type = 'client'/>
+    <script src = 'main/client/c.main.lua' cache = 'false' type = 'client'/>
+    <script src = 'main/server/s.main.lua' cache = 'false' type = 'server'/>
+
+    <!-- assets -->
+    
+    <file src="assets/ui/background.png"/>
+    <file src="assets/ui/linear.png"/>
+    <file src="assets/ui/bg.png"/>
+    <file src="assets/ui/bg1.png"/>
+    <file src="assets/ui/bg2.png"/>
+    <file src="assets/ui/icon-alert.png"/>
+    <file src="assets/ui/car.png"/>
+    <file src="assets/ui/button.png"/>
+    <file src="assets/ui/close.png"/>
+    <file src="assets/ui/sujeira.png"/>
+    <file src="assets/ui/somMaquina.mp3"/>
+
+    <!-- fontes -->
+
+    <file src="assets/fonts/regular.ttf"/>
+    <file src="assets/fonts/medium.ttf"/>
+    <file src="assets/fonts/bold.ttf"/>
+    <file src="assets/fonts/SemiBold.ttf"/>
+
+</meta>

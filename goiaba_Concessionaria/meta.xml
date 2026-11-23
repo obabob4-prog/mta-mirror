@@ -1,0 +1,143 @@
+<meta>
+    <info author = 'Caio#8888' />
+    <oop>true</oop>
+
+    <script src = 'config.lua' type = 'shared' cache = 'false' />
+
+    <script src = 'assets/codes/concessionaria/vitinC.lua' type = 'client' cache = 'false' />
+    <script src = 'assets/codes/detran/caioC.lua' type = 'client' cache = 'false' />
+    <script src = 'assets/codes/garagem/vitinC.lua' type = 'client' cache = 'false' />
+
+    <script src = 'assets/codes/newGaragem/vitinG.lua' type = 'shared' cache = 'false' />
+    <script src = 'assets/codes/newGaragem/vitinC.lua' type = 'client' cache = 'false' />
+    <script src = 'assets/codes/newGaragem/vitinS.lua' type = 'server' cache = 'false' />
+
+    <script src = 'assets/codes/caioS.lua' type = 'server' />
+
+    <file src = 'assets/music.mp3' />
+
+    <file src = 'assets/fonts/bold.ttf' />
+
+    <file src = 'assets/fonts/medium.ttf' />
+
+    <file src = 'assets/fonts/regular.ttf' />
+
+
+
+    <file src = 'assets/images/concessionaria/blur.png' />
+    <file src = 'assets/images/concessionaria/bg.png' />
+    <file src = 'assets/images/concessionaria/cash.png' />
+    <file src = 'assets/images/concessionaria/porkin.png' />
+    <file src = 'assets/images/concessionaria/dolar.png' />
+    <file src = 'assets/images/concessionaria/users.png' />
+    <file src = 'assets/images/concessionaria/shield.png' />
+    <file src = 'assets/images/concessionaria/weight.png' />
+    <file src = 'assets/images/concessionaria/arrow.png' />
+    <file src = 'assets/images/concessionaria/arrow2.png' />
+    <file src = 'assets/images/concessionaria/buy.png' />
+    <file src = 'assets/images/concessionaria/buyg.png' />
+    <file src = 'assets/images/concessionaria/bgoun.png' />
+    <file src = 'assets/images/concessionaria/check.png' />
+
+
+    <file src = 'assets/images/concessionaria/carros/veh.png' />
+    <file src = 'assets/images/concessionaria/carros/veh2.png' />
+
+    <file src = 'assets/images/concessionaria/carros/400.png' />
+    <file src = 'assets/images/concessionaria/carros/404.png' />
+    <file src = 'assets/images/concessionaria/carros/405.png' />
+    <file src = 'assets/images/concessionaria/carros/409.png' />
+    <file src = 'assets/images/concessionaria/carros/411.png' />
+    <file src = 'assets/images/concessionaria/carros/415.png' />
+    <file src = 'assets/images/concessionaria/carros/422.png' />
+    <file src = 'assets/images/concessionaria/carros/426.png' />
+    <file src = 'assets/images/concessionaria/carros/431.png' />
+    <file src = 'assets/images/concessionaria/carros/436.png' />
+    <file src = 'assets/images/concessionaria/carros/438.png' />
+    <file src = 'assets/images/concessionaria/carros/445.png' />
+    <file src = 'assets/images/concessionaria/carros/446.png' />
+    <file src = 'assets/images/concessionaria/carros/452.png' />
+    <file src = 'assets/images/concessionaria/carros/454.png' />
+    <file src = 'assets/images/concessionaria/carros/456.png' />
+    <file src = 'assets/images/concessionaria/carros/458.png' />
+    <file src = 'assets/images/concessionaria/carros/461.png' />
+    <file src = 'assets/images/concessionaria/carros/462.png' />
+    <file src = 'assets/images/concessionaria/carros/466.png' />
+    <file src = 'assets/images/concessionaria/carros/467.png' />
+    <file src = 'assets/images/concessionaria/carros/468.png' />
+    <file src = 'assets/images/concessionaria/carros/471.png' />
+    <file src = 'assets/images/concessionaria/carros/472.png' />
+    <file src = 'assets/images/concessionaria/carros/473.png' />
+    <file src = 'assets/images/concessionaria/carros/477.png' />
+    <file src = 'assets/images/concessionaria/carros/479.png' />
+    <file src = 'assets/images/concessionaria/carros/480.png' />
+    <file src = 'assets/images/concessionaria/carros/484.png' />
+    <file src = 'assets/images/concessionaria/carros/487.png' />
+    <file src = 'assets/images/concessionaria/carros/493.png' />
+    <file src = 'assets/images/concessionaria/carros/507.png' />
+    <file src = 'assets/images/concessionaria/carros/514.png' />
+    <file src = 'assets/images/concessionaria/carros/515.png' />
+    <file src = 'assets/images/concessionaria/carros/516.png' />
+    <file src = 'assets/images/concessionaria/carros/521.png' />
+    <file src = 'assets/images/concessionaria/carros/522.png' />
+    <file src = 'assets/images/concessionaria/carros/567.png' />
+    <file src = 'assets/images/concessionaria/carros/529.png' />
+    <file src = 'assets/images/concessionaria/carros/540.png' />
+    <file src = 'assets/images/concessionaria/carros/542.png' />
+    <file src = 'assets/images/concessionaria/carros/545.png' />
+    <file src = 'assets/images/concessionaria/carros/551.png' />
+    <file src = 'assets/images/concessionaria/carros/561.png' />
+    <file src = 'assets/images/concessionaria/carros/565.png' />
+    <file src = 'assets/images/concessionaria/carros/566.png' />
+    <file src = 'assets/images/concessionaria/carros/579.png' />
+    <file src = 'assets/images/concessionaria/carros/581.png' />
+    <file src = 'assets/images/concessionaria/carros/585.png' />
+    <file src = 'assets/images/concessionaria/carros/586.png' />
+    <file src = 'assets/images/concessionaria/carros/589.png' />
+    <file src = 'assets/images/concessionaria/carros/600.png' />
+    <file src = 'assets/images/concessionaria/carros/603.png' />
+    <file src = 'assets/images/concessionaria/carros/604.png' />
+
+    <file src = 'assets/images/concessionaria/marcas/volkswagen.png' />
+    <file src = 'assets/images/concessionaria/marcas/audi.png' />
+    <file src = 'assets/images/concessionaria/marcas/bmw.png' />
+    <file src = 'assets/images/concessionaria/marcas/chevrolet.png' />
+    <file src = 'assets/images/concessionaria/marcas/ferrari.png' />
+    <file src = 'assets/images/concessionaria/marcas/ford.png' />
+    <file src = 'assets/images/concessionaria/marcas/honda.png' />
+    <file src = 'assets/images/concessionaria/marcas/koenigsegg.png' />
+    <file src = 'assets/images/concessionaria/marcas/lamborghini.png' />
+    <file src = 'assets/images/concessionaria/marcas/mclaren.png' />
+    <file src = 'assets/images/concessionaria/marcas/mercedes.png' />
+    <file src = 'assets/images/concessionaria/marcas/mitsubishi.png' />
+    <file src = 'assets/images/concessionaria/marcas/nissan.png' />
+    <file src = 'assets/images/concessionaria/marcas/porsche.png' />
+    <file src = 'assets/images/concessionaria/marcas/scania.png' />
+    <file src = 'assets/images/concessionaria/marcas/toyota.png' />
+    <file src = 'assets/images/concessionaria/marcas/volvo.png' />
+    <file src = 'assets/images/concessionaria/marcas/yamaha.png' />
+    <file src = 'assets/images/concessionaria/marcas/hyundai.png' />
+    <file src = 'assets/images/concessionaria/marcas/mazda.png' />
+    <file src = 'assets/images/concessionaria/marcas/triumph.png' />
+    <file src = 'assets/images/concessionaria/marcas/goiaba.png' />
+
+    <export function = "getFreeSlotPlayer" type="server"/>
+    <export function = 'changeSlotPlayer' type = 'server' />
+    <export function = 'getVehiclePrice' type = 'server' />
+    <export function = 'getVehiclePrice' type = 'client' />
+    <export function = 'getVehiclePrice' type = 'shared' />
+    <export function = 'getVehiclesAccountsInfo' type = 'server' />
+    <export function = 'getSlotsVehicleAccount' type = 'server' />
+    <export function = 'addedAccountVehicle' type = 'server' />
+    <export function = 'removeAccountVehicle' type = 'server' />
+    <export function = 'getVehicleDataByPlate' type = 'server' />
+    <export function = 'getAccountVehicles' type = 'server' />
+    <export function = 'setVehicleDetido' type = 'server' />
+    <export function = 'getVehiclesTax' type = 'server' />
+    <export function = 'responderProposta' type = 'server' />
+    <export function = 'getVehicleInAccount' type = 'server' />
+    <export function = 'messageTimesVehicle' type = 'server' />
+
+    <min_mta_version server = '1.5.4-9.11342' />
+
+</meta>

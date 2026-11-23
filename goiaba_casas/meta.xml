@@ -1,0 +1,60 @@
+<meta>
+
+
+
+    <info author = 'Caio' name = 'Casas' />
+
+    
+
+    <script src = 'caioG.lua' type = 'shared' />
+
+    <script src = 'caioC.lua' type = 'client' cache = 'false' />
+
+    <script src = 'caioS.lua' type = 'server' />
+
+
+
+    <file src = 'assets/images/bg.png' />
+
+    <file src = 'assets/images/exit.png' />
+
+    <file src = 'assets/images/gps.png' />
+
+    <file src = 'assets/images/homes.png' />
+
+    <file src = 'assets/images/myHouses.png' />
+
+    <file src = 'assets/images/debits.png' />
+
+    <file src = 'assets/images/rectangle.png' />
+
+    <file src = 'assets/images/rectangle2.png' />
+
+    <file src = 'assets/images/rectangle3.png' />
+
+    <file src = 'assets/images/eye.png' />
+
+    <file src = 'assets/images/character.png' />
+
+    <file src = 'assets/images/money.png' />
+
+    <file src = 'assets/images/settings.png' />
+
+    <file src = 'assets/images/lock.png' />
+
+    <file src = 'assets/images/lock2.png' />
+
+    <file src = 'assets/images/insertPassword.png' />
+
+    <file src = 'assets/images/houses/1.png' />
+
+
+    <export function = 'getPlayerHouses' type = 'server'/>
+    <export function = 'getHouseTax' type = 'server'/>
+    <export function = 'aceptHome' type = 'server'/>
+    <export function = 'alterIDHouses' type = 'server'/>
+    <export function = 'getPlayerOwnerHouseByDimension' type = 'server'/>
+
+
+
+</meta>

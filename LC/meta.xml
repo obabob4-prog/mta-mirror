@@ -1,0 +1,30 @@
+<meta>
+    <info trackpack="true" author="BlueEagle" version="4.0.0" name="Liberty_City" />
+
+
+    <file type="client" src="eagleZones.txt" />
+
+
+    <file type="client" src="interiors.map" />
+
+
+    <file type="client" src="water.dat" />
+
+
+    <file type="client" src="zones/*/*.map" />
+    <file type="client" src="zones/*/*.definition" />
+
+    <file type="client" src="imgs/dff.img" />
+    <file type="client" src="imgs/col.img" />
+    <file type="client" src="imgs/txd.img" />
+
+    <!-- 2026-11-18 gta4gg: the two PNG globs (tracks/*.png and
+         tracks/**/*.png) matched the same files, so MTA printed
+         "Ignoring duplicate client file ... tracks/radar.png" on every
+         start. These are listed explicitly instead: same files are sent,
+         no duplicates, and no client-side double download. -->
+    <file src="tracks/tracks.xml" type="client" />
+    <file src="tracks/radar.png" type="client" />
+    <file src="tracks/TURISMO.png" type="client" />
+    <file src="tracks/Turismo_overlay.png" type="client" />
+</meta>

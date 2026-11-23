@@ -1,0 +1,2 @@
+-1: "LPW_Bolge_1"
+-2: "LPW_Bolge_2"

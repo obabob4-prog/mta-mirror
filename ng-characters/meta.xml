@@ -1,0 +1,40 @@
+<meta>
+    <info author="NGRP" name="ng-characters" description="Character creation, selection, spawning and saving" version="1.1" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <script src="s_chars.lua" type="server" cache="false"/>
+    <script src="c_chars.lua" type="client" cache="false"/>
+    <file src="user.png"/>
+    <file src="chev_left.png"/>
+    <file src="chev_right.png"/>
+    <file src="plus.png"/>
+    <file src="trash.png"/>
+    <file src="shuffle.png"/>
+    <file src="calendar.png"/>
+    <file src="dice.png"/>
+    <file src="crown.png"/>
+    <file src="logout.png"/>
+    <file src="male.png"/>
+    <file src="female.png"/>
+    <file src="badge.png"/>
+    <file src="panel.png"/>
+    <file src="ui_card_fill.png"/>
+    <file src="ui_card_ring.png"/>
+    <file src="ui_card_solid.png"/>
+    <file src="ui_card_glow.png"/>
+    <file src="ui_pill_solid.png"/>
+    <file src="ui_pill_glow.png"/>
+    <file src="ui_btn_gold.png"/>
+    <file src="ui_btn_red.png"/>
+    <file src="ui_circle_solid.png"/>
+    <file src="ui_circle_fill.png"/>
+    <file src="ui_circle_ring.png"/>
+    <file src="ui_fade.png"/>
+    <file src="deco_city.png"/>
+    <file src="deco_palm.png"/>
+    <file src="fonts/Constantia.ttf"/>
+    <file src="fonts/Constantia-Italic.ttf"/>
+    <file src="fonts/BebasNeueRegular.otf"/>
+    <file src="fonts/Ubuntu-L.ttf"/>
+    <file src="fonts/Ubuntu-B.ttf"/>
+</meta>

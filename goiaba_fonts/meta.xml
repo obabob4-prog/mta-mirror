@@ -1,0 +1,31 @@
+<meta>
+<download_priority_group>999999</download_priority_group>
+  <script src="global.lua" type="shared" cache="false" />
+  <script src="exports.lua" type="client" cache="false" />
+  
+  <!-- Files -->
+  <file src="assets/fonts/sf/regular.ttf" /> 
+  <file src="assets/fonts/sf/sbold.ttf" /> 
+  <file src="assets/fonts/sf/bold.ttf" /> 
+  <file src="assets/fonts/sf/medium.ttf" /> 
+  
+  <file src="assets/fonts/roboto/bold.ttf" /> 
+  <file src="assets/fonts/roboto/regular.ttf" /> 
+  <file src="assets/fonts/roboto/medium.ttf" /> 
+
+  <file src="assets/fonts/inter/bold.ttf" />
+  <file src="assets/fonts/inter/extrabold.ttf" />
+  <file src="assets/fonts/inter/medium.ttf" />
+  <file src="assets/fonts/inter/regular.ttf" />
+  <file src="assets/fonts/inter/semibold.ttf" />
+
+  <file src="assets/fonts/generic/heavy.ttf" /> 
+  <file src="assets/fonts/generic/digital.ttf" /> 
+  <file src="assets/fonts/generic/wind.ttf" /> 
+  <file src="assets/fonts/generic/integral.ttf" /> 
+  <file src="assets/fonts/generic/black.ttf" /> 
+
+  <!-- Exports -->
+  <export function="useFont" type="client" />
+  
+</meta>

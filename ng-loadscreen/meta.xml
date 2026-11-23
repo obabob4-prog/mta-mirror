@@ -1,0 +1,5 @@
+<meta>
+	<info author="NGRP" description="Lightweight DX loading overlay while the GTA V city streams in" version="1.0" type="script" />
+	<script src="c_loadscreen.lua" type="client" cache="false" />
+	<file src="bg_dark.png" />
+</meta>

@@ -1,0 +1,13 @@
+<meta>
+    <info author="gta4gg" name="lc_voice"
+          description="Server-authoritative microphone toggle (V / F12) + premium voice-activity marker above players"
+          type="script" version="1.1.0"/>
+
+    <min_mta_version server="1.6.0-9.22470" client="1.6.0-9.22470"/>
+
+    <script src="server.lua" type="server"/>
+    <script src="client.lua" type="client"/>
+
+    <!-- Professional microphone icon (Icons8 Fluency, 100x100 RGBA) -->
+    <file src="mic.png" type="client"/>
+</meta>

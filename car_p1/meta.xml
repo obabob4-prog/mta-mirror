@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] McLaren P1 2014" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/supergt.dff" />
+    <file src="models/supergt.txd" />
+</meta>

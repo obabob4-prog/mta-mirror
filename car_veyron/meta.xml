@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Bugatti Veyron Super Sport" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/infernus.dff" />
+    <file src="models/infernus.txd" />
+</meta>

@@ -1,0 +1,6 @@
+<meta>
+    <info author="NGRP" name="ng-map" description="World: blips, 3D location labels, weather/time cycle, help" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <script src="s_map.lua" type="server" cache="false"/>
+    <script src="c_map.lua" type="client" cache="false"/>
+</meta>

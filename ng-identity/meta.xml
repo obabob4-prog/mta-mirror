@@ -1,0 +1,9 @@
+<meta>
+    <info author="NGRP" name="ng-identity" description="ID cards, age, licenses, show ID" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <script src="s_identity.lua" type="server" cache="false"/>
+    <script src="c_identity.lua" type="client" cache="false"/>
+    <export function="setLicense" http="false"/>
+    <export function="hasLicense" http="false"/>
+</meta>

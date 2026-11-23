@@ -1,0 +1,6 @@
+<meta>
+    <info author="Luxury Pack" name="[LuxuryCars] Screenshot Helper" version="1.0" type="script"
+          description="Server side /shot capture: writes the GTA render (no GUI/console) to a jpg inside the resource" />
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" cache="false" />
+</meta>

@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] BMW M8 F92 2020" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/feltzer.dff" />
+    <file src="models/feltzer.txd" />
+</meta>

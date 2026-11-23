@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Toyota Supra MK IV" author="CSR2,Vlad Beshanov" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/jester.dff" />
+    <file src="models/jester.txd" />
+</meta>

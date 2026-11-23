@@ -1,0 +1,23 @@
+<meta>
+
+    <info author = 'discord.gg/nRQJ52wwuR ou dc: pedrodeveloper' name = 'Notify System'/>
+
+    <script src = 'LDg.lua'  type = 'shared' cache = 'false'/>
+    <script src = 'assets/main/LDc.lua' type = 'client' cache = 'false'/>
+    <script src = 'assets/main/LDs.lua' type = 'server'/>
+
+    <file   src = 'assets/sons/success.mp3'/>
+    <file   src = 'assets/sons/error.wav'/>
+    <file   src = 'assets/sons/info.mp3'/>
+
+    <file   src = 'assets/images/success.png'/>
+    <file   src = 'assets/images/warning.png'/>
+    <file   src = 'assets/images/error.png'/>
+    <file   src = 'assets/images/info.png'/>
+
+    <file   src = 'assets/fonts/regular.ttf'/>
+    <file   src = 'assets/fonts/bold.ttf'/>
+
+    <export function = 'addBox' type = 'server'/>
+    <export function = 'addBox' type = 'client'/>
+</meta>

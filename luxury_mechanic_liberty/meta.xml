@@ -1,0 +1,23 @@
+<meta>
+    <info name="Luxury Mechanic Center / Liberty City" version="1.0.0"
+          author="gta4gg" type="script"
+          description="Verified Liberty City luxury mechanic center: real 3D building, separate 3D interior, authoritative repair/tuning, vehicle-safe entry and exit." />
+
+    <!-- This server has no mapmanager resource. The .map file in maps/ is
+         parsed by server.lua itself, so no mapmanager include is required. -->
+    <include resource="ng-database" />
+    <include resource="ng-economy" />
+    <include resource="ng-inventory" />
+
+    <script src="config.lua" type="shared" />
+    <script src="interior/layout.lua" type="shared" />
+
+    <script src="server.lua" type="server" cache="false" />
+    <script src="client.lua" type="client" cache="false" />
+
+    <file src="maps/luxury_mechanic_liberty.map" />
+    <file src="textures/luxury_sign.png" />
+
+    <!-- eagleLoader requires this client build for streamed LC asset models. -->
+    <min_mta_version client="1.6.0-9.22824" server="1.6.0" />
+</meta>

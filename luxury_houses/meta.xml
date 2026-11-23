@@ -1,0 +1,53 @@
+<meta>
+    <info author="gta4gg" name="luxury_houses"
+          description="PREMIUM REAL ESTATE &amp; INTERIOR SYSTEM - GTA V luxury property interiors inside Liberty City"
+          type="script" version="2.0.0"/>
+
+    <min_mta_version server="1.6.0-9.22470" client="1.6.0-9.22470"/>
+
+    <!-- shared configuration (property list + furniture catalog) -->
+    <script src="config.lua" type="shared" cache="false"/>
+
+    <!-- server logic: ownership, keys, storage, garage, furniture, dimensions -->
+    <script src="server.lua" type="server" cache="false"/>
+
+    <!-- Liberty City sea: the LC water.dat quads are recreated server side
+         because eagleLoader's water loader runs on the client and fails. -->
+    <script src="scripts/s_water.lua" type="server" cache="false"/>
+
+    <!-- premium black / gold UI + interaction + placement mode -->
+    <script src="client.lua" type="client" cache="false"/>
+
+    <!-- real GTA V Eclipse Tower apartment assets: loaded client-side into
+         custom object model IDs and used only in property dimensions -->
+    <file src="models/apt_mp_shell.dff"/>
+    <file src="models/apt_mp_mod.txd"/>
+    <file src="models/apt_mp_shell.col"/>
+    <file src="models/apt_mp_int.dff"/>
+    <file src="models/apt_mp_int.txd"/>
+    <file src="models/apt_mp_int.col"/>
+    <file src="models/apt_mp_props.dff"/>
+    <file src="models/apt_mp_props.txd"/>
+    <file src="models/apt_mp_props.col"/>
+
+    <!-- data files -->
+    <file src="water.dat"/>
+    <file src="measured.txt" download="false"/>
+    <file src="textures/house_icon.png"/>
+    <file src="textures/building_icon.png"/>
+    <file src="textures/warehouse_icon.png"/>
+    <file src="textures/ring.png"/>
+    <file src="textures/glow.png"/>
+    <file src="README.md"/>
+    <file src="interiors/README.md"/>
+    <file src="models/README.md"/>
+    <file src="textures/README.md"/>
+    <file src="collisions/README.md"/>
+    <file src="maps/README.md"/>
+    <file src="scripts/README.md"/>
+
+    <!-- dependencies -->
+    <include resource="ng-economy"/>
+    <include resource="ng-database"/>
+    <include resource="ng-inventory"/>
+</meta>

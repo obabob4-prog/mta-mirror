@@ -1,0 +1,14 @@
+<meta>
+    <info author="NGRP" name="ng-login2" description="Account login/registration v5 NEON HUE (banner artwork, hue engine, Z wheel, long-press drag, smoke - pure DX, zero CEF)" version="5.2" type="script"/>
+    <min_mta_version client="1.3.0-9.04431" server="1.3.0-9.04431"></min_mta_version>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <script src="s_login.lua" type="server" cache="false"/>
+    <script src="c_login.lua" type="client" cache="false"/>
+    <!-- 2026-11-16 slimmed: only assets the pure-DX UI actually uses are
+         sent to clients (banner jpg + Cairo font). Removed unused
+         bg_login.png (2.5MB duplicate), Inter/Oswald fonts, and the
+         legacy CEF html/css/js — saves ~3.1MB per player download. -->
+    <file src="html/bg_login.jpg"/>
+    <file src="html/fonts/Cairo.ttf"/>
+</meta>

@@ -1,0 +1,19 @@
+<meta>
+    <info author="NGRP" name="ng-rp" description="Next Generation Roleplay - main gamemode coordinator + DX UI library" version="1.0" type="gamemode"/>
+    <script src="s_main.lua" type="server" cache="false"/>
+    <script src="c_util.lua" type="client" cache="false"/>
+    <export function="getConfig" http="false"/>
+    <export function="openWindow" type="client"/>
+    <export function="closeWindow" type="client"/>
+    <export function="closeAllWindows" type="client"/>
+    <export function="isWindowOpen" type="client"/>
+    <export function="windowButton" type="client"/>
+    <export function="windowLabel" type="client"/>
+    <export function="setWindowLabel" type="client"/>
+    <export function="windowEdit" type="client"/>
+    <export function="windowGetEdit" type="client"/>
+    <export function="windowClear" type="client"/>
+    <export function="getTheme" type="client"/>
+    <export function="uiScale" type="client"/>
+    <export function="notify" type="client"/>
+</meta>

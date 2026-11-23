@@ -1,0 +1,37 @@
+<meta>
+	<script src="c_weapon.lua" type="client" cache="false" />
+	<script src="s_weapon.lua" type="server" />
+
+    <file src="models/None.txd" />
+    <file src="models/None.dff" />
+    
+    <file src="models/FALL.txd" />
+    <file src="models/FALL.dff" />
+    <file src="models/G36.txd" />
+    <file src="models/G36.dff" />
+    <file src="models/GLOCK18.dff" />
+    <file src="models/GLOCK18.txd" />
+	<file src="models/GLOCKG25.dff" />
+    <file src="models/GLOCKG25.txd" />
+	<file src="models/MP5.dff" />
+    <file src="models/MP5.txd" />
+	<file src="models/AWP.dff" />
+    <file src="models/AWP.txd" />
+	<file src="models/M4A1CCOSD.txd"/>
+	<file src="models/M4A1CCOSD.dff"/>
+
+
+	<file src="Sounds/Primary/FALL.wav" cache="false"/>
+	<file src="Sounds/Primary/G36.wav" cache="false"/>
+	<file src="Sounds/Primary/GLOCKG25.wav" cache="false"/>
+	<file src="Sounds/Primary/MP5.wav" cache="false"/>
+	<file src="Sounds/Primary/M4A1CCOSD.wav" cache="false"/>
+
+	<script src="bone_attach/bone_attach.lua"/>
+	<script src="bone_attach/bone_attach_c.lua" type="client" cache="false"/>
+	<script src="bone_attach/attach_func.lua"/>
+	<script src="bone_attach/attach_func.lua" type="client" cache="false"/>
+	<script src="bone_attach/bone_pos_rot.lua" type="client" cache="false"/>
+
+	<export function="recreateWeaponObject" type="server"/>
+</meta>

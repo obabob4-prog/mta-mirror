@@ -1,0 +1,26 @@
+<meta>
+    <info name="[LmB] LCPD Vehicle Fleet (GTA V conversions)" author="LmB Roleplay / sourced from GTAAll authors" version="1.0" type="script" description="Runtime DFF/TXD replacements for the 10 stock police vehicle IDs used by lmb_police. No gta3.img files are modified." />
+
+    <script src="client.lua" type="client" cache="false" />
+
+    <file src="models/lcpd_cruiser.dff" />
+    <file src="models/lcpd_cruiser.txd" />
+    <file src="models/lcpd_bike.dff" />
+    <file src="models/lcpd_bike.txd" />
+    <file src="models/lcpd_suv.dff" />
+    <file src="models/lcpd_suv.txd" />
+    <file src="models/lcpd_unmarked.dff" />
+    <file src="models/lcpd_unmarked.txd" />
+    <file src="models/lcpd_interceptor.dff" />
+    <file src="models/lcpd_interceptor.txd" />
+    <file src="models/lcpd_enforcer.dff" />
+    <file src="models/lcpd_enforcer.txd" />
+    <file src="models/lcpd_command.dff" />
+    <file src="models/lcpd_command.txd" />
+    <file src="models/lcpd_tactical.dff" />
+    <file src="models/lcpd_tactical.txd" />
+    <file src="models/lcpd_federal.dff" />
+    <file src="models/lcpd_federal.txd" />
+    <file src="models/lcpd_air.dff" />
+    <file src="models/lcpd_air.txd" />
+</meta>

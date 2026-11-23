@@ -1,0 +1,5 @@
+<meta>
+    <info author="NGRP" name="ng-hud" description="Modern HUD: health, hunger, money, speedometer" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <script src="c_hud.lua" type="client" cache="false"/>
+</meta>

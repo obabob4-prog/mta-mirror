@@ -1,0 +1,10 @@
+<meta>
+    <info author="NGRP" name="ng-database" description="Database layer - SQLite core for Next Generation Roleplay" version="1.0" type="script"/>
+    <script src="s_main.lua" type="server" cache="false"/>
+    <export function="query" http="false"/>
+    <export function="queryRow" http="false"/>
+    <export function="execute" http="false"/>
+    <export function="insert" http="false"/>
+    <export function="logAction" http="false"/>
+    <export function="backupDatabase" http="false"/>
+</meta>

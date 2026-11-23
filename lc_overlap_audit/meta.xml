@@ -1,0 +1,7 @@
+<meta>
+    <info name="lc_overlap_audit" author="OpenCode" version="1.0" type="script"
+          description="Read-only full-map AABB overlap auditor for Liberty City" />
+    <script src="c_overlap.lua" type="client" cache="false" />
+    <script src="s_overlap.lua" type="server" />
+    <min_mta_version client="1.6.0" server="1.6.0" />
+</meta>

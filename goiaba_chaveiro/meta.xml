@@ -1,0 +1,12 @@
+<meta>
+
+	<info author = 'Caio' name = 'Chaveiro' />
+
+	<script src = 'caioG.lua' type = 'shared' cache = 'false' />
+	<script src = 'caioC.lua' type = 'client' cache = 'false' />
+	<script src = 'caioS.lua' type = 'server' />
+
+	<file src='images/background.png' />
+	<file src='images/grid.png' />
+
+</meta>

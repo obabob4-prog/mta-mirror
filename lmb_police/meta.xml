@@ -1,0 +1,67 @@
+<meta>
+    <info author="LmB" name="lmb_police" description="LmB Roleplay - Liberty City Police Department (full system)" version="1.0.0" type="script" />
+    <min_mta_version server="1.6.0-9.22470" client="1.6.0-9.22470" />
+
+    <!-- dependencies -->
+    <include resource="ng-rp" />
+    <include resource="ng-database" />
+    <include resource="ng-economy" />
+
+    <!-- shared config -->
+    <script src="config.lua" type="shared" cache="false" />
+
+    <!-- server: load order matters (core/db first, actions register in modules) -->
+    <script src="server/s_core.lua" type="server" cache="false" />
+    <script src="server/s_db.lua" type="server" cache="false" />
+    <script src="server/s_duty.lua" type="server" cache="false" />
+    <script src="server/s_garage.lua" type="server" cache="false" />
+    <script src="server/s_armory.lua" type="server" cache="false" />
+    <script src="server/s_field.lua" type="server" cache="false" />
+    <script src="server/s_hr.lua" type="server" cache="false" />
+    <script src="server/s_ops.lua" type="server" cache="false" />
+    <script src="server/s_station.lua" type="server" cache="false" />
+    <script src="server/s_qa.lua" type="server" cache="false" />
+
+    <!-- read-only runtime diagnostics (used by ng-hotreload eval) -->
+    <export function="qaReport" http="false" />
+    <export function="garageDebug" http="false" />
+    <export function="purgeCharacter" http="false" />
+
+    <!-- client -->
+    <script src="client/c_ui.lua" type="client" cache="false" />
+    <script src="client/c_world.lua" type="client" cache="false" />
+
+    <!-- UI textures -->
+    <file src="ui/pd_badge.png" />
+    <file src="ui/pd_glow.png" />
+    <file src="ui/pd_grad.png" />
+    <file src="ui/pd_ring.png" />
+    <file src="ui/pd_star.png" />
+    <file src="ui/icons/ic_armory.png" />
+    <file src="ui/icons/ic_car.png" />
+    <file src="ui/icons/ic_cells.png" />
+    <file src="ui/icons/ic_check.png" />
+    <file src="ui/icons/ic_chief.png" />
+    <file src="ui/icons/ic_close.png" />
+    <file src="ui/icons/ic_dash.png" />
+    <file src="ui/icons/ic_duty.png" />
+    <file src="ui/icons/ic_enter.png" />
+    <file src="ui/icons/ic_exit.png" />
+    <file src="ui/icons/ic_lock.png" />
+    <file src="ui/icons/ic_mdt.png" />
+    <file src="ui/icons/ic_minus.png" />
+    <file src="ui/icons/ic_people.png" />
+    <file src="ui/icons/ic_plus.png" />
+    <file src="ui/icons/ic_radio.png" />
+    <file src="ui/icons/ic_ranks.png" />
+    <file src="ui/icons/ic_search.png" />
+    <file src="ui/icons/ic_shield.png" />
+    <file src="ui/icons/ic_uniform.png" />
+
+    <!-- fonts -->
+    <file src="fonts/BebasNeueRegular.otf" />
+    <file src="fonts/Constantia-Italic.ttf" />
+    <file src="fonts/Constantia.ttf" />
+    <file src="fonts/Ubuntu-B.ttf" />
+    <file src="fonts/Ubuntu-L.ttf" />
+</meta>

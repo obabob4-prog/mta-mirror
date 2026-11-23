@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Mercedes-AMG G63 Black Edition" author="" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/huntley.dff" />
+    <file src="models/huntley.txd" />
+</meta>

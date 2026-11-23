@@ -1,0 +1,9 @@
+<meta>
+    <script src="global.lua" type="shared" cache="false"/>
+    <script src="assets/client.lua" type="client" cache="false"/>
+    <script src="assets/server.lua" type="server" cache="false"/>
+
+    <file src="assets/belt.mp3" cache="false"/>
+    <file src="assets/belt1.mp3" cache="false"/>
+    <file src="assets/belt2.mp3" cache="false"/>
+</meta>

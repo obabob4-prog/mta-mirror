@@ -1,0 +1,13 @@
+<meta>
+    <info author="NGRP" name="ng-vehicles" description="Vehicle ownership, dealer, fuel, locks, plates, parking" version="1.0" type="script"/>
+    <include resource="ng-rp"/>
+    <include resource="ng-database"/>
+    <include resource="ng-economy"/>
+    <script src="s_vehicles.lua" type="server" cache="false"/>
+    <script src="c_dealer.lua" type="client" cache="false"/>
+    <script src="c_f9vehicles.lua" type="client" cache="false"/>
+    <export function="createOwnedVehicle" http="false"/>
+    <export function="buyVehicleAt" http="false"/>
+    <export function="sellVehicleAt" http="false"/>
+    <export function="sellVehicleByID" http="false"/>
+</meta>

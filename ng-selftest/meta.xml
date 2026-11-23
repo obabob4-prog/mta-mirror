@@ -1,0 +1,4 @@
+<meta>
+    <info author="NGRP" name="ng-selftest" description="One-shot self test: DB, hashing, exports (results to server.log)" version="1.0" type="script"/>
+    <script src="s_test.lua" type="server" cache="false"/>
+</meta>

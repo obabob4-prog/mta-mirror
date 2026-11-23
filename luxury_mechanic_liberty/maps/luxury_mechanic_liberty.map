@@ -1,0 +1,20 @@
+<map>
+    <info name="Luxury Mechanic Center / Liberty City" author="gta4gg" version="1.0" type="script" />
+
+    <!-- Decorative site assets only. The main building, pads, ramps and
+         interior are created by server.lua so their scale/collision can be
+         controlled from config.lua. All positions are verified LC ground. -->
+
+    <object id="lml_site_light_1" model="2701" posX="-49" posY="660" posZ="11.2" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_site_light_2" model="2701" posX="-21" posY="660" posZ="11.2" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_site_light_3" model="2701" posX="-49" posY="630" posZ="9.4" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_site_light_4" model="2701" posX="-21" posY="630" posZ="9.4" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+
+    <object id="lml_site_cone_1" model="1238" posX="-43" posY="659" posZ="10.5" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_site_cone_2" model="1238" posX="-27" posY="659" posZ="10.5" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_site_cone_3" model="1238" posX="-43" posY="651" posZ="10.5" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_site_cone_4" model="1238" posX="-27" posY="651" posZ="10.5" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+
+    <object id="lml_parking_tyres_1" model="1327" posX="-52" posY="644" posZ="9.4" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+    <object id="lml_parking_tyres_2" model="1327" posX="-18" posY="644" posZ="9.4" rotX="0" rotY="0" rotZ="0" interior="0" dimension="0" />
+</map>

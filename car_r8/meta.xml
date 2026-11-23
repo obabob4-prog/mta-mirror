@@ -1,0 +1,6 @@
+﻿<meta>
+    <info name="[LuxuryCars] Audi R8 V10 Vorsteiner" author="shdru" version="1.0" type="script" description="GTA V style vehicle replacement for MTA:SA" />
+    <script src="client.lua" type="client" cache="false" />
+    <file src="models/buffalo.dff" />
+    <file src="models/buffalo.txd" />
+</meta>
