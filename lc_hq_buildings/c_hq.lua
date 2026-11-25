@@ -3,15 +3,11 @@
     ------------------------
     1. Adds lost micro-detail to the original LC building textures without
        replacing their artwork (unsharp mask + subtle luminance grain).
-    2. Keeps LOD distances inside the 325 m range where GTA still fades models
-       instead of popping them, instead of pushing every model to 900 m and
-       every plant to 2500 m (low LOD objects multiply that by 5). Categories
-       are still classified by real bounding-box height/name:
-          buildings 380 m, landmarks 850 m, roads 650 m, vegetation 1200-1400 m
-       but the effective high-model switch is capped at 325 m; low LOD objects
-       receive the matching fifth of that value, low LOD buildings 305-325 m.
-       The original engine distance of every model is saved before the first
-       change and restored when the resource stops.
+    2. LOD override is DISABLED. In-game testing (2026-11-23, 22199) showed that
+       forcing full and low-LOD buildings to the same short fade distance made
+       both draw at once, producing foggy, non-solid ghost buildings stacked on
+       the real ones. The map/eagleLoader LOD values are left untouched; any
+       distance changed by an older build is restored on resource stop.
     3. Breaks exact coplanarity of overlapping road tiles by 8 mm, and only
        when two thin road plates really overlap (bounding boxes + top height).
        The old build lifted every road tile within 24 m, which produced visible
@@ -375,7 +371,10 @@ local worldFixDone = false
 local lastCount, stablePolls = 0, 0
 
 local function runWorldFixes()
-    enforceLODDistance()
+    -- LOD override disabled after in-world verification: equal fade distances
+    -- for the high and low LOD models made both render together (ghost
+    -- buildings). The original map LOD is now always kept.
+    -- enforceLODDistance()
     fixRoadCoplanarity()
 end
 
