@@ -26,7 +26,7 @@ settings = {
         -- 2026-11-22: public Cloudflare tunnel to the local Assetify webserver (port 33022).
         -- Without this the remote client fetches http://localhost:33022 = its OWN PC,
         -- so scene packs (LPW_Bolge_1/2) fail and half the city is missing.
-        webserverURL = "https://exactly-feof-scotia-alias.trycloudflare.com"
+        webserverURL = "https://api.trycloudflare.com"
     },
 
     discord = {
