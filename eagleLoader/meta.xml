@@ -38,6 +38,8 @@
     <export function="streamObject" type="client" />
     <export function="streamBuilding" type="client" />
     <export function="setElementStream" type="client" />
+    <!-- Isolated visibility audit read-only diagnostic (no map behaviour change). -->
+    <export function="zxalGetMapState" type="client" />
 
     <!-- Server Exported Functions -->
     <export function="getMaps" type="server" />
