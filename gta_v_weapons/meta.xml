@@ -1,0 +1,69 @@
+<meta>
+    <info author="OpenCode" name="GTA V Weapons (Global Replacement)" version="1.0.0"
+          description="GTA V weapon models for San Andreas, applied globally through MTA DFF/TXD model replacement. No CLEO, no ASI, no game-folder edits." />
+
+    <script src="server.lua" type="server" />
+    <script src="client.lua" type="client" />
+
+    <file src="textures/ak47.txd" />
+    <file src="textures/bat.txd" />
+    <file src="textures/bomb.txd" />
+    <file src="textures/chromegun.txd" />
+    <file src="textures/colt45.txd" />
+    <file src="textures/cuntgun.txd" />
+    <file src="textures/desert_eagle.txd" />
+    <file src="textures/fire_ex.txd" />
+    <file src="textures/golfclub.txd" />
+    <file src="textures/grenade.txd" />
+    <file src="textures/gun_dildo2.txd" />
+    <file src="textures/gun_para.txd" />
+    <file src="textures/gun_vibe1.txd" />
+    <file src="textures/heatseek.txd" />
+    <file src="textures/katana.txd" />
+    <file src="textures/knifecur.txd" />
+    <file src="textures/m4.txd" />
+    <file src="textures/micro_uzi.txd" />
+    <file src="textures/minigun.txd" />
+    <file src="textures/molotov.txd" />
+    <file src="textures/mp5lng.txd" />
+    <file src="textures/nitestick.txd" />
+    <file src="textures/poolcue.txd" />
+    <file src="textures/rocketla.txd" />
+    <file src="textures/satchel.txd" />
+    <file src="textures/sawnoff.txd" />
+    <file src="textures/shotgspa.txd" />
+    <file src="textures/silenced.txd" />
+    <file src="textures/sniper.txd" />
+    <file src="textures/teargas.txd" />
+
+    <file src="models/ak47.dff" />
+    <file src="models/bat.dff" />
+    <file src="models/bomb.dff" />
+    <file src="models/chromegun.dff" />
+    <file src="models/colt45.dff" />
+    <file src="models/cuntgun.dff" />
+    <file src="models/desert_eagle.dff" />
+    <file src="models/fire_ex.dff" />
+    <file src="models/golfclub.dff" />
+    <file src="models/grenade.dff" />
+    <file src="models/gun_dildo2.dff" />
+    <file src="models/gun_para.dff" />
+    <file src="models/gun_vibe1.dff" />
+    <file src="models/heatseek.dff" />
+    <file src="models/katana.dff" />
+    <file src="models/knifecur.dff" />
+    <file src="models/m4.dff" />
+    <file src="models/micro_uzi.dff" />
+    <file src="models/minigun.dff" />
+    <file src="models/molotov.dff" />
+    <file src="models/mp5lng.dff" />
+    <file src="models/nitestick.dff" />
+    <file src="models/poolcue.dff" />
+    <file src="models/rocketla.dff" />
+    <file src="models/satchel.dff" />
+    <file src="models/sawnoff.dff" />
+    <file src="models/shotgspa.dff" />
+    <file src="models/silenced.dff" />
+    <file src="models/sniper.dff" />
+    <file src="models/teargas.dff" />
+</meta>
