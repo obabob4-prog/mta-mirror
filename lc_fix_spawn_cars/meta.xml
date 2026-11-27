@@ -1,0 +1,4 @@
+<meta>
+    <info name="lc_fix_spawn_cars" description="one-time remove spinning/far vehicles near spawn" version="1.0" type="script" />
+    <script src="server.lua" type="server" />
+</meta>
