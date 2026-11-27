@@ -1,32 +1,55 @@
 <meta>
-    <info name="LC GTA V Textures" author="gta4gg" version="3.0" type="script"
-          description="True replacement of LC road/sidewalk textures with 1024px tileable surfaces; 512px fallback (no overlay, reversible)" />
+    <info name="LC Photoreal Roads" author="gta4gg" version="4.2" type="script"
+          description="4K detailed asphalt with baked cracks/tyre marks/grit, white paint only (no yellow lines), reversible via /hdroads off" />
 
     <script src="s_roads.lua" type="server" />
     <script src="c_roads.lua" type="client" cache="false" />
 
     <file src="hd_roads.fx" type="client" cache="false" />
-    <file src="road_blank_2k.png" type="client" cache="false" />
-    <file src="road_line1_2k.png" type="client" cache="false" />
-    <file src="road_line2_2k.png" type="client" cache="false" />
-    <file src="road_yellow_2k.png" type="client" cache="false" />
-    <file src="road_tar_2k.png" type="client" cache="false" />
+    <file src="hd_roads_world.fx" type="client" cache="false" />
+
+    <!-- baked detail 4K first, plain 4K, then 2K/1K, then legacy fallbacks -->
+    <file src="road_main_hd_4k.jpg" type="client" cache="false" />
+    <file src="road_main_hd_2k.jpg" type="client" cache="false" />
+    <file src="road_main_hd_1k.jpg" type="client" cache="false" />
+    <file src="road_hwy_hd_4k.jpg" type="client" cache="false" />
+    <file src="road_hwy_hd_2k.jpg" type="client" cache="false" />
+    <file src="road_hwy_hd_1k.jpg" type="client" cache="false" />
+    <file src="road_alley_hd_4k.jpg" type="client" cache="false" />
+    <file src="road_alley_hd_2k.jpg" type="client" cache="false" />
+    <file src="road_alley_hd_1k.jpg" type="client" cache="false" />
+    <file src="road_industrial_hd_4k.jpg" type="client" cache="false" />
+    <file src="road_industrial_hd_2k.jpg" type="client" cache="false" />
+    <file src="road_industrial_hd_1k.jpg" type="client" cache="false" />
+
+    <file src="road_main_4k.jpg" type="client" cache="false" />
+    <file src="road_main_2k.jpg" type="client" cache="false" />
+    <file src="road_main_1k.jpg" type="client" cache="false" />
+    <file src="road_hwy_4k.jpg" type="client" cache="false" />
+    <file src="road_hwy_2k.jpg" type="client" cache="false" />
+    <file src="road_hwy_1k.jpg" type="client" cache="false" />
+    <file src="road_alley_4k.jpg" type="client" cache="false" />
+    <file src="road_alley_2k.jpg" type="client" cache="false" />
+    <file src="road_alley_1k.jpg" type="client" cache="false" />
+    <file src="road_industrial_4k.jpg" type="client" cache="false" />
+    <file src="road_industrial_2k.jpg" type="client" cache="false" />
+    <file src="road_industrial_1k.jpg" type="client" cache="false" />
+
     <file src="pave_slabs_2k.png" type="client" cache="false" />
-    <file src="curb_stone_2k.png" type="client" cache="false" />
-    <file src="road_blank_1k.png" type="client" cache="false" />
-    <file src="road_line1_1k.png" type="client" cache="false" />
-    <file src="road_line2_1k.png" type="client" cache="false" />
-    <file src="road_yellow_1k.png" type="client" cache="false" />
-    <file src="road_tar_1k.png" type="client" cache="false" />
     <file src="pave_slabs_1k.png" type="client" cache="false" />
+    <file src="pave_slabs.png" type="client" cache="false" />
+    <file src="curb_stone_2k.png" type="client" cache="false" />
     <file src="curb_stone_1k.png" type="client" cache="false" />
+    <file src="curb_stone.png" type="client" cache="false" />
+
+    <file src="road_blank_2k.png" type="client" cache="false" />
+    <file src="road_blank_1k.png" type="client" cache="false" />
     <file src="road_blank.png" type="client" cache="false" />
+    <file src="road_line1_2k.png" type="client" cache="false" />
     <file src="road_line1.png" type="client" cache="false" />
     <file src="road_line2.png" type="client" cache="false" />
     <file src="road_yellow.png" type="client" cache="false" />
     <file src="road_tar.png" type="client" cache="false" />
-    <file src="pave_slabs.png" type="client" cache="false" />
-    <file src="curb_stone.png" type="client" cache="false" />
 
     <min_mta_version server="1.6.0" client="1.6.0" />
 </meta>
