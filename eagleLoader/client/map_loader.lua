@@ -98,9 +98,29 @@ end
 -- players fell through an empty sky). Restore the exact interior-0 wipe that
 -- was live and verified working at 08:48. Interior 13 scenery is a cosmetic
 -- issue only; a missing map is not.
+-- Custom model IDs allocated with engineRequestModel can fall below 20000 on
+-- this MTA build (ZXAL uses IDs such as 13934). A blanket removeWorldModel()
+-- sweep marks those IDs as removed even for MTA-created map elements, so none
+-- of the custom geometry ever streams in. Never wipe an ID that belongs to a
+-- loaded Eagle resource.
+local function isEagleCustomModelID(modelID)
+    if allocatedModelIDs and allocatedModelIDs[modelID] then return true end
+    if reverseID and reverseID[modelID] then return true end
+    return false
+end
+
+-- A blanket 0..50000 sweep also removes the player skin (0), vehicles (400),
+-- peds and every custom model. That leaves a completely invisible world even
+-- though every element reports streamed=true. Only remove stock SA object IDs.
+local function isRemovableStockWorldModel(modelID)
+    return isSAModelID(modelID) and not isEagleCustomModelID(modelID)
+end
+
 function removeGameWorld()
     for i = 0, 50000 do
-        removeWorldModel(i, 5000, 0, 0, 0, 0)
+        if isRemovableStockWorldModel(i) then
+            removeWorldModel(i, 5000, 0, 0, 0, 0)
+        end
     end
 end
 
@@ -134,8 +154,10 @@ function removeWorldMapConfirm(water)
         removeGameWorld()
     else
         for i = 0, 50000 do
-            removeWorldModel(i, 5000, 0, 0, 0, 0)
-            removeWorldModel(i, 5000, 0, 0, 0, 13)
+            if isRemovableStockWorldModel(i) then
+                removeWorldModel(i, 5000, 0, 0, 0, 0)
+                removeWorldModel(i, 5000, 0, 0, 0, 13)
+            end
         end
     end
     if defaultWorldOcclusionsEnabled == nil and getOcclusionsEnabled then
@@ -417,6 +439,10 @@ function streamMapElements(resourceName, elementList,offX,offY,offZ, initializeI
     return objects
 end
 
+-- One-shot entry guard shared by startMapSafely and onResourceStartTimer.
+-- Declared before both functions so the lexical scope is correct.
+local mapLoadInProgress = {}
+
 -- Handles loading zones, maps, and water on resource start
 function onResourceStartTimer(resourceThatStarted)
     -- Some clients cannot resolve other running resources with
@@ -439,6 +465,14 @@ function onResourceStartTimer(resourceThatStarted)
         setTimer(onResourceStartTimer, (EAGLE_UNLOAD_DELAY_MS or 100) + 25, 1, resourceThatStarted)
         return
     end
+
+    -- startMapSafely uses mapLoadInProgress as a one-shot entry guard. Clear it
+    -- once this call has actually passed the retry gate; duplicate protection
+    -- after this point is provided by resourceLoaded (set below before the
+    -- asynchronous definition work) and by unloadingResources during teardown.
+    -- Previously the flag stayed true forever after the first successful load,
+    -- so restarting a map resource without restarting eagleLoader did nothing.
+    mapLoadInProgress[resourceName] = nil
 
     if not fileExists(zoneFilePath) or resourceLoaded[resourceName] then return end
 
@@ -540,7 +574,6 @@ end
 -- A client-side resource load can fail silently (e.g. getResources() is server-only).
 -- Run every entry point through one guarded wrapper so the failure reaches the
 -- server log as [EAGLE-DIAG] instead of leaving the player in an empty sky.
-local mapLoadInProgress = {}
 local function startMapSafely(res, phase)
     local name
     if type(res) == "string" then
@@ -602,6 +635,10 @@ addEventHandler("onClientResourceStop", root, function(stoppedResource)
     lodIDsByResource[resourceName] = nil
 end)
 
+-- Test-only remote trigger so a newly added map resource can request a load
+-- after all of its client files have finished downloading. The handler below
+-- already existed; only the remote event declaration was missing.
+addEvent("eagleLoader:mapSync", true)
 addEventHandler("eagleLoader:mapSync", resourceRoot, function(mapNames)
     if type(mapNames) ~= "table" then return end
     for _, name in ipairs(mapNames) do
@@ -660,6 +697,130 @@ function sendLoadDiag(phase)
         table.concat(zones, ","), table.concat(imgs, ","),
         tostring(type(resourceLoaded) == "table" and resourceLoaded[DIAG_RES]),
         tostring(defs), tostring(elements))
+end
+
+-- ============================================================
+-- Isolated visibility audit API (read-only). Exported to ZXAL so its
+-- admin debug UI reports the real Eagle Loader state instead of guessing
+-- from resource-scoped globals that belong to a different resource.
+-- ============================================================
+local function zxalTry(fn, ...)
+    if type(fn) ~= "function" then return nil end
+    local ok, a, b = pcall(fn, ...)
+    if not ok then return nil end
+    return a, b
+end
+
+local function zxalSectorOf(x, y)
+    if x >= -2050 and x <= -1050 and y >= -1200 and y <= -403.16 then return "S1" end
+    if x >= -1050 and x <= -450  and y >= -1200 and y <= -403.16 then return "S2" end
+    if x >= -2050 and x <= -1050 and y >= -2000 and y <= -1200 then return "S3" end
+    if x >= -1050 and x <= -450  and y >= -2000 and y <= -1200 then return "S4" end
+    if x >= -2050 and x <= -1050 and y >= -3000 and y <= -2000 then return "S5" end
+    if x >= -1050 and x <= -450  and y >= -3000 and y <= -2000 then return "S6" end
+    return "-"
+end
+
+function zxalGetMapState(resourceName, px, py, pz)
+    resourceName = type(resourceName) == "string" and resourceName or "zx_alderney_expansion"
+    px, py, pz = tonumber(px) or 0, tonumber(py) or 0, tonumber(pz) or 0
+
+    local definitions = resourceDefinitions[resourceName] or {}
+    local elements = mapElements[resourceName] or {}
+    local idMap = resourceIDCache[resourceName] or {}
+    local models = {}
+    for logicalID, modelID in pairs(idMap) do
+        local txdID = zxalTry(engineGetModelTXDID, modelID)
+        local flags = zxalTry(engineGetModelFlags, modelID)
+        models[#models + 1] = {
+            id = tostring(logicalID),
+            model = tonumber(modelID) or 0,
+            txdID = tonumber(txdID) or -1,
+            lodDistance = tonumber(streamingDistances[modelID]) or tonumber(streamingDistances[logicalID]) or -1,
+            flags = type(flags) == "table" and flags or {}
+        }
+    end
+    table.sort(models, function(a, b) return a.id < b.id end)
+
+    local sectorCounts = { S1 = 0, S2 = 0, S3 = 0, S4 = 0, S5 = 0, S6 = 0, ["-"] = 0 }
+    local kindCounts = { ground = 0, road = 0, building = 0, lodBox = 0, other = 0 }
+    local nearby = {}
+    local liveElements = 0
+    for _, el in ipairs(elements) do
+        if isElement(el) then
+            liveElements = liveElements + 1
+            local id = getElementID(el) or "?"
+            local x, y, z = getElementPosition(el)
+            local sector = zxalSectorOf(x, y)
+            sectorCounts[sector] = (sectorCounts[sector] or 0) + 1
+
+            if id:find("ground", 1, true) then
+                kindCounts.ground = kindCounts.ground + 1
+            elseif id:find("road", 1, true) or id:find("bridge", 1, true) or id:find("ramp", 1, true) then
+                kindCounts.road = kindCounts.road + 1
+            elseif id:find("lod", 1, true) then
+                kindCounts.lodBox = kindCounts.lodBox + 1
+            elseif id:find("streetlight", 1, true) then
+                kindCounts.other = kindCounts.other + 1
+            else
+                kindCounts.building = kindCounts.building + 1
+            end
+
+            local dx, dy, dz = x - px, y - py, z - pz
+            local dist2 = dx * dx + dy * dy + dz * dz
+            if dist2 <= 450 * 450 and #nearby < 32 then
+                nearby[#nearby + 1] = {
+                    id = id,
+                    model = getElementModel(el) or -1,
+                    type = getElementType(el) or "?",
+                    x = x, y = y, z = z,
+                    distance = math.sqrt(dist2),
+                    alpha = getElementAlpha(el) or -1,
+                    collision = zxalTry(getElementCollisionsEnabled, el) and 1 or 0,
+                    streamed = isElementStreamedIn(el) and 1 or 0,
+                    dimension = getElementDimension(el) or -1,
+                    interior = getElementInterior(el) or -1,
+                    lod = isElement(getLowLODElement(el)) and 1 or 0,
+                    sector = sector
+                }
+            end
+        end
+    end
+    table.sort(nearby, function(a, b) return a.distance < b.distance end)
+
+    local cx, cy, cz, lx, ly, lz = getCameraMatrix()
+    local target = getCameraTarget()
+    local stats = zxalAssetStats and zxalAssetStats[resourceName] or {}
+    local errors = zxalStreamErrors and zxalStreamErrors[resourceName] or {}
+
+    return {
+        resource = resourceName,
+        loaded = resourceLoaded[resourceName] and true or false,
+        defs = (function() local n = 0; for _ in pairs(definitions) do n = n + 1 end; return n end)(),
+        elements = liveElements,
+        models = #models,
+        sectors = sectorCounts,
+        kinds = kindCounts,
+        nearby = nearby,
+        modelList = models,
+        asset = {
+            dffOK = stats.dffOK or 0, dffFail = stats.dffFail or 0,
+            colOK = stats.colOK or 0, colFail = stats.colFail or 0,
+            txdOK = stats.txdOK or 0, txdFail = stats.txdFail or 0,
+            linkedDFF = stats.linkedDFF or 0, replacedDFF = stats.replacedDFF or 0,
+            replacedCOL = stats.replacedCOL or 0,
+            assignedTXD = stats.assignedTXD or 0, importedTXD = stats.importedTXD or 0
+        },
+        assetErrors = stats.errors or {},
+        streamErrors = errors,
+        camera = {
+            x = cx or 0, y = cy or 0, z = cz or 0,
+            lookX = lx or 0, lookY = ly or 0, lookZ = lz or 0,
+            target = isElement(target) and (getElementType(target) or "element") or "nil",
+            distanceToPlayer = math.sqrt((cx - px) ^ 2 + (cy - py) ^ 2 + (cz - pz) ^ 2)
+        },
+        player = { x = px, y = py, z = pz }
+    }
 end
 
 -- Fire directly when this script loads; do not depend on event parameters.
