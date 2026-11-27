@@ -2,6 +2,17 @@
 -- Event Handling
 -- =========================
 
+-- Isolated visibility audit: streaming-create/stream-bind errors, keyed by
+-- owning map resource. Diagnostic only; no streaming behaviour is changed.
+zxalStreamErrors = {}
+function zxalStreamError(resourceName, message)
+    resourceName = resourceName or "?"
+    zxalStreamErrors[resourceName] = zxalStreamErrors[resourceName] or {}
+    local list = zxalStreamErrors[resourceName]
+    list[#list + 1] = tostring(message)
+    if #list > 40 then table.remove(list, 1) end
+end
+
 function initializeObjects(resourceName)
     local allElements = resourceName and mapElements[resourceName] or {}
 
@@ -530,6 +541,9 @@ function setElementStream(element, newModel, _streamNew, _initial, lodParent, un
             end
             streamed = true
         else
+            zxalStreamError(ownerResource, string.format(
+                "Model ID %s not found in resource/default cache for element %s",
+                tostring(id), tostring(getElementID(element))))
             if streamDebug then
                 outputDebugString2(string.format("Error: Model ID %s not found in cache (Default).", id))
             end
@@ -740,6 +754,7 @@ function streamElement(
     end
 
     if not id then
+        zxalStreamError(ownerResource, "Tried to create an element with no ID")
         outputDebugString2("Error: Trying to create invalid element.")
         return
     end
@@ -791,6 +806,7 @@ function streamElement(
     end
 
     if not element then
+        zxalStreamError(ownerResource, string.format("Failed to create element for ID %s", tostring(id)))
         outputDebugString2(string.format("Error: Failed to create element for ID %s.", tostring(id)))
         return
     end
@@ -806,6 +822,9 @@ function streamElement(
         eagleLowLODElements[element] = true
     end
     if not ignoreStream and not finalModelReady then
+        zxalStreamError(ownerResource, string.format(
+            "Final model not ready for ID %s; placement uses placeholder %s",
+            tostring(id), tostring(resolvedModel)))
         hideStreamPlaceholder(element)
     end
 
