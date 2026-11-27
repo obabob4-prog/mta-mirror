@@ -1,0 +1,10 @@
+<meta>
+    <info author="OpenCode" name="Art The Clown - Playable Character" version="1.0.0"
+          description="Skinned GTA:SA ped replacement for skin ID 0 (CJ), with NPC preview command." />
+
+    <script src="client.lua" type="client" />
+    <script src="server.lua" type="server" />
+
+    <file src="models/artclown.dff" />
+    <file src="textures/artclown.txd" />
+</meta>
