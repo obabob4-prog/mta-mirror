@@ -1,9 +1,7 @@
-// lc_hd_roads / hd_roads.fx  (2026-11-22 v4)
-// REAL PBR-style albedo (Poly Haven CC0) replaces the flat original.
-// For road groups, bright pixels from the original world texture are kept as
-// paint. That preserves the ORIGINAL lane-marking geometry exactly while the
-// asphalt underneath becomes fully detailed. For sidewalk/curb groups the
-// original is ignored, because those textures are naturally bright.
+// lc_hd_roads / hd_roads.fx  (v4.2)
+// Strong, baked photoreal asphalt + white/silver lane paint ONLY.
+// No yellow lines: original paint geometry is kept but recoloured clean white.
+// Detail: lower-frequency grit sample survives mipmapping, stronger local contrast.
 
 texture texture0;
 sampler2D baseSampler = sampler_state
@@ -29,21 +27,50 @@ sampler2D hdSampler = sampler_state
     AddressV = Wrap;
 };
 
+texture macroTexture;
+sampler2D macroSampler = sampler_state
+{
+    Texture = <macroTexture>;
+    MinFilter = Linear;
+    MagFilter = Linear;
+    MipFilter = Linear;
+    MaxAnisotropy = 8;
+    AddressU = Wrap;
+    AddressV = Wrap;
+};
+
 float preserveMarkings;
+float tileScale;   // unused in fallback shader
+float detailStrength;
 
 float4 main(float2 uv : TEXCOORD0) : COLOR0
 {
     float4 surface = tex2D(hdSampler, uv);
+
+    // visible gravel + micro-cracks, tuned so it survives downsampling
+    float3 fine = tex2D(hdSampler, uv * 1.85 + float2(0.11, 0.43)).rgb - 0.5;
+    float3 col = pow(max(surface.rgb, 0.002), 0.90);
+    col = (col - 0.5) * 1.18 + 0.5;
+    col += fine * 0.12;
+
+    // larger cracks / patches at half frequency survive mipmapping.
+    // applied AFTER contrast so bright patches cannot blow out to white.
+    float3 macro = tex2D(macroSampler, uv * 0.42 + float2(0.31, 0.67)).rgb;
+    float mLum = dot(macro, float3(0.299, 0.587, 0.114));
+    float sLum = dot(col, float3(0.299, 0.587, 0.114));
+    col = lerp(col, macro * (sLum / max(mLum, 0.02)), detailStrength);
+    surface.rgb = saturate(col);
+
     if (preserveMarkings < 0.5)
         return float4(surface.rgb, 1.0);
 
+    // only genuine paint (>168/255) from the untouched original texture
     float4 original = tex2D(baseSampler, uv);
     float lum = dot(original.rgb, float3(0.299, 0.587, 0.114));
-    // Original road PNGs: asphalt 50..100, paint 180..237.
-    float paintMask = smoothstep(0.42, 0.72, lum);
-    float yellow = saturate((original.r - original.b) * 3.0);
-    float3 paint = lerp(float3(0.94, 0.95, 0.96), float3(0.98, 0.80, 0.18), yellow);
-    return float4(lerp(surface.rgb, paint, paintMask * 0.92), 1.0);
+    float paintMask = smoothstep(0.66, 0.82, lum);
+    // clean white / very slight cool silver - NO YELLOW
+    float3 paint = float3(0.92, 0.94, 0.97);
+    return float4(lerp(surface.rgb, paint, paintMask * 0.95), 1.0);
 }
 
 technique
