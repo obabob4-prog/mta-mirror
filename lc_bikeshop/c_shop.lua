@@ -60,6 +60,14 @@ end
 local previewModel = nil
 local previewRX, previewRY = 0, 0
 
+local function closeUI()
+    ui.open = false
+    showCursor(false)
+    if isElement(previewModel) then destroyElement(previewModel) end
+    previewModel = nil
+    previewRX, previewRY = 0, 0
+end
+
 local function updatePreviewRot()
     if isElement(previewModel) then
         setElementRotation(previewModel, previewRX, previewRY, 0, "zyx")
@@ -85,11 +93,7 @@ end)
 
 addEvent("lbs:close", true)
 addEventHandler("lbs:close", localPlayer, function()
-    ui.open = false
-    showCursor(false)
-    if isElement(previewModel) then destroyElement(previewModel) end
-    previewModel = nil
-    previewRX, previewRY = 0, 0
+    closeUI()
 end)
 
 addEvent("lbs:status", true)
@@ -115,7 +119,7 @@ bindKey("e", "down", function()
 end)
 
 bindKey("escape", "down", function()
-    if ui.open then ui.open = false; showCursor(false) end
+    if ui.open then closeUI() end
 end)
 
 addEventHandler("onClientCursorMove", root, function(cx, cy)
@@ -135,7 +139,7 @@ addEventHandler("onClientClick", root, function(btn, state, cx, cy)
 
     -- close area bottom-right
     if inBox(cx, cy, sx2 - 110, sy2 - 38, 100, 30) then
-        ui.open = false; showCursor(false); return
+        closeUI(); return
     end
 
     for _, b in ipairs(buttons) do
@@ -150,8 +154,8 @@ addEventHandler("onClientClick", root, function(btn, state, cx, cy)
                 triggerServerEvent("lbs:buy", localPlayer, tonumber(id:sub(4)))
             elseif id:sub(1, 4) == "sell" then
                 triggerServerEvent("lbs:sell", localPlayer, tonumber(id:sub(5)))
-            elseif id == "close" then
-                ui.open = false; showCursor(false)
+            elseif id == "close" or id == "hide" then
+                closeUI()
             end
             return
         end
@@ -195,6 +199,13 @@ addEventHandler("onClientRender", root, function()
     dxDrawRectangle(x, y, W, 38, rgba(255, 215, 0, 230))
     dxDrawText("LC BIKE SHOP", x + 12, y + 6, x + W - 12, y + 32,
         rgba(20, 20, 20, 255), 1.3, "default-bold", "left", "center")
+
+    -- prominent HIDE button (top-right of the header)
+    local hideX, hideY = x + W - 108, y + 5
+    dxDrawRectangle(hideX, hideY, 100, 28, rgba(170, 55, 55, 235))
+    dxDrawText("HIDE  X", hideX, hideY, hideX + 100, hideY + 28,
+        rgba(255, 255, 255, 255), 1.05, "default-bold", "center", "center")
+    addButton("hide", hideX, hideY, 100, 28, "HIDE", 170, 55, 55, 235)
 
     -- tabs bar
     local tb_y = y + 48
