@@ -1,0 +1,4 @@
+<meta>
+    <info name="emergency_autologin" description="Temporary black-screen bypass: auto-login + connector spawn for the known local player" version="1.0" type="script"/>
+    <script src="server.lua" type="server"/>
+</meta>
