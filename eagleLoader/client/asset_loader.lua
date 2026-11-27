@@ -46,6 +46,34 @@ function eagleLoaderStopTrace(resourceName, phase)
     triggerServerEvent("eagleLoader:stopTrace", resourceRoot, resourceName, phase)
 end
 
+-- Isolated visibility audit: per-resource asset registration counters. These
+-- are diagnostic only; they do not change load order or map behaviour.
+zxalAssetStats = {}
+function zxalResetAssetStats(resourceName)
+    zxalAssetStats[resourceName] = {
+        dffOK = 0, dffFail = 0, colOK = 0, colFail = 0,
+        txdOK = 0, txdFail = 0,
+        linkedDFF = 0, replacedDFF = 0, replacedCOL = 0,
+        assignedTXD = 0, importedTXD = 0,
+        errors = {}
+    }
+end
+function zxalAssetNote(resourceName, field, ok, detail)
+    if not resourceName then return ok end
+    local s = zxalAssetStats[resourceName]
+    if not s then zxalResetAssetStats(resourceName); s = zxalAssetStats[resourceName] end
+    if field == "fail" then
+        s.errors[#s.errors + 1] = tostring(detail)
+        if #s.errors > 40 then table.remove(s.errors, 1) end
+    elseif ok then
+        if s[field] then s[field] = s[field] + 1 end
+    else
+        s.errors[#s.errors + 1] = "FAILED " .. tostring(field) .. ": " .. tostring(detail)
+        if #s.errors > 40 then table.remove(s.errors, 1) end
+    end
+    return ok
+end
+
 -- Preserve the client settings that were active before Eagle Loader changed
 -- them. These APIs affect the GTA streamer globally rather than just this
 -- resource, so leaving our larger values behind after a loader restart keeps
@@ -164,7 +192,16 @@ local function loadImgAsset(assetType, assetName, resourceName, modelID, img, as
         if assigned then
             requestedTXDModels[resourceName] = requestedTXDModels[resourceName] or {}
             requestedTXDModels[resourceName][modelID] = true
-        elseif not importIMGTextureFallback(assetName, img, assetPath, resourceName, modelID) then
+            zxalAssetNote(resourceName, "assignedTXD", true, assetPath .. " -> " .. tostring(modelID))
+            zxalAssetNote(resourceName, "txdOK", true, assetPath .. " -> " .. tostring(modelID))
+        elseif importIMGTextureFallback(assetName, img, assetPath, resourceName, modelID) then
+            zxalAssetNote(resourceName, "importedTXD", true, assetPath .. " -> " .. tostring(modelID))
+            zxalAssetNote(resourceName, "txdOK", true, assetPath .. " -> " .. tostring(modelID))
+        else
+            zxalAssetNote(resourceName, "txdFail", false,
+                "TXD " .. tostring(assetPath) .. " could not be assigned to model " .. tostring(modelID))
+            zxalAssetNote(resourceName, "fail", false,
+                "TXD " .. tostring(assetPath) .. " could not be assigned to model " .. tostring(modelID))
             outputDebugString2(string.format(
                 "TXD: %s could not be assigned to model %s using either TXD-ID or import mode!",
                 tostring(assetPath), tostring(modelID)
@@ -183,14 +220,22 @@ local function loadImgAsset(assetType, assetName, resourceName, modelID, img, as
         end
         if not col or not engineReplaceCOL(col, modelID) then
             if created and isElement(col) then destroyElement(col) end
+            zxalAssetNote(resourceName, "colFail", false,
+                "COL " .. tostring(assetPath) .. " could not be loaded/replaced for model " .. tostring(modelID))
+            zxalAssetNote(resourceName, "fail", false,
+                "COL " .. tostring(assetPath) .. " could not be loaded/replaced for model " .. tostring(modelID))
             outputDebugString2(string.format("COL: %s could not be loaded or replaced from IMG! : %s", assetPath, tostring(modelID)), 2)
             return false
         end
+        zxalAssetNote(resourceName, "replacedCOL", true, assetPath .. " -> " .. tostring(modelID))
+        zxalAssetNote(resourceName, "colOK", true, assetPath .. " -> " .. tostring(modelID))
         if created then globalCache[resourceName][cacheKey] = col end
     elseif assetType == "dff" then
         if engineImageLinkDFF(img, assetPath, modelID) then
             imgLinkedDFFModels[resourceName] = imgLinkedDFFModels[resourceName] or {}
             imgLinkedDFFModels[resourceName][modelID] = true
+            zxalAssetNote(resourceName, "linkedDFF", true, assetPath .. " -> " .. tostring(modelID))
+            zxalAssetNote(resourceName, "dffOK", true, assetPath .. " -> " .. tostring(modelID))
             return true
         end
 
@@ -208,9 +253,15 @@ local function loadImgAsset(assetType, assetName, resourceName, modelID, img, as
         end
         if not dff or not engineReplaceModel(dff, modelID, false) then
             if created and isElement(dff) then destroyElement(dff) end
+            zxalAssetNote(resourceName, "dffFail", false,
+                "DFF " .. tostring(assetPath) .. " could not be linked/replaced for model " .. tostring(modelID))
+            zxalAssetNote(resourceName, "fail", false,
+                "DFF " .. tostring(assetPath) .. " could not be linked/replaced for model " .. tostring(modelID))
             outputDebugString2(string.format("DFF: %s could not be linked or replaced from IMG! : %s", assetPath, tostring(modelID)), 2)
             return false
         end
+        zxalAssetNote(resourceName, "replacedDFF", true, assetPath .. " -> " .. tostring(modelID))
+        zxalAssetNote(resourceName, "dffOK", true, assetPath .. " -> " .. tostring(modelID))
         if created then globalCache[resourceName][cacheKey] = dff end
     end
     return true
@@ -432,6 +483,7 @@ end
 function registerMapDefinitions(resourceName, mapDefinitions)
     ensureResourceTables(resourceName)
     resourceDefinitions[resourceName] = {}
+    zxalResetAssetStats(resourceName)
     prepIMGContainers(resourceName)
 
     for _, data in ipairs(mapDefinitions or {}) do
@@ -589,6 +641,7 @@ local function applyMapDefinition(resourceName, data)
 
     local modelID, isNew, isEngineAllocated = requestDefinitionModelID(resourceName, data)
     if not tonumber(modelID) then
+        zxalAssetNote(resourceName, "fail", false, "Failed to request a model ID for " .. tostring(data.id))
         outputDebugString2(string.format("Error: Failed to request model ID for object with ID: %s", tostring(data.id)))
         return false
     end
@@ -619,6 +672,8 @@ local function applyMapDefinition(resourceName, data)
     local dffLoaded = tryLoadDefinitionDFF(data, resourceName, data.zone, modelID, usesAlphaTransparency(data))
 
     if not dffLoaded or not colLoaded then
+        zxalAssetNote(resourceName, "fail", false, string.format(
+            "Model %s skipped: dff=%s col=%s", tostring(data.id), tostring(dffLoaded), tostring(colLoaded)))
         outputDebugString2(string.format(
             "Skipping model %s because required assets are missing or failed to load. dff=%s col=%s",
             tostring(data.id),
