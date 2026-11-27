@@ -1,0 +1,7 @@
+<meta>
+  <info author="OpenCode" name="Art the Clown - Playable Skin" version="1.0" type="script" description="Custom GTA:SA ped skin for MTA:SA"/>
+  <script src="client.lua" type="client"/>
+  <script src="server.lua" type="server"/>
+  <file src="artclown.dff"/>
+  <file src="artclown.txd"/>
+</meta>
