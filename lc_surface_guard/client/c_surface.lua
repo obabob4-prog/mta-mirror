@@ -23,13 +23,26 @@ local FALLBACK_MODEL  = 1337       -- always-loaded stock fallback
 local RAY_TOP         = 12.0
 local RAY_BOTTOM      = -18.0
 
-local patches = {}               -- cellKey -> { element = obj, x=, y= }
+local patches = {}               -- cellKey -> { element = obj, x=, y=, auto= }
 local nudged  = {}               -- element -> { x, y, z }
 local hidden  = {}               -- element -> { x, y, z }
 local patchCount = 0
 local lastReport = 0
 local lastScanPos = nil
 local staticFloors = {}
+local wasWorldReady = false
+
+-- LC is streamed in asynchronously by eagleLoader. On a cold client the first
+-- few seconds have no map elements at all, so a raycast sees "void" everywhere.
+-- The old guard turned those false voids into ~hundreds of road tiles laid on
+-- top of the real city, which looked like two cities overlapping until the
+-- player rejoined. Never auto-scan until the map is actually present.
+local WORLD_READY_MIN_BUILDINGS = 1500
+
+local function worldReady()
+    local ok, builds = pcall(getElementsByType, "building")
+    return ok and type(builds) == "table" and #builds >= WORLD_READY_MIN_BUILDINGS
+end
 
 local RESCUE_X, RESCUE_Y, RESCUE_Z = -224.23, 1146.18, 14.05
 local VOID_X, VOID_Y, VOID_R2 = -208.0, 1136.0, 50 * 50
@@ -101,7 +114,7 @@ local function prunePatches(px, py, need)
     if patchCount < 0 then patchCount = 0 end
 end
 
-local function makePatch(x, y, z, rotZ)
+local function makePatch(x, y, z, rotZ, auto)
     local key = cellKey(x, y)
     local existing = patches[key]
     if existing and isElement(existing.element) then return false end
@@ -133,7 +146,7 @@ local function makePatch(x, y, z, rotZ)
     setElementDimension(element, 0)
     setElementInterior(element, 0)
 
-    patches[key] = { element = element, x = x, y = y }
+    patches[key] = { element = element, x = x, y = y, auto = auto and true or false }
     patchCount = patchCount + 1
     return true
 end
@@ -162,6 +175,25 @@ local function clearPatches()
         nudged[element] = nil
     end
     outputDebugString("[LC-Surface] all runtime fixes cleared", 3)
+end
+
+-- Only remove tiles that were guessed from a pre-map "void" scan. Rescue
+-- patches created by the fall guard are left alone.
+local function clearAutoPatches()
+    local removed = 0
+    for k, entry in pairs(patches) do
+        if entry and entry.auto then
+            local element = entry.element
+            if isElement(element) then destroyElement(element) end
+            patches[k] = nil
+            patchCount = patchCount - 1
+            removed = removed + 1
+        end
+    end
+    if patchCount < 0 then patchCount = 0 end
+    if removed > 0 then
+        outputDebugString(("[LC-Surface] removed %d stale pre-map patches"):format(removed), 3)
+    end
 end
 
 local function nearestGround(results, cx, cy)
@@ -269,6 +301,13 @@ local function scan()
     if not ENABLED then return 0, 0, 0 end
     if getElementDimension(localPlayer) ~= 0 or getElementInterior(localPlayer) ~= 0 then return 0, 0, 0 end
 
+    -- Wait for the LC map; before that every ray is a false void.
+    if not worldReady() then return 0, 0, 0 end
+    if not wasWorldReady then
+        wasWorldReady = true
+        clearAutoPatches()
+    end
+
     ensureStaticSafetyFloors()
 
     local px, py, pz = getElementPosition(localPlayer)
@@ -320,7 +359,7 @@ local function scan()
     for _, r in ipairs(results) do
         if r.void or r.thin then
             local z = r.z or nearestGround(results, r.x, r.y)
-            if makePatch(r.x, r.y, z, r.rot) then created = created + 1 end
+            if makePatch(r.x, r.y, z, r.rot, true) then created = created + 1 end
         end
     end
 
@@ -392,7 +431,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
     setTimer(scan, SCAN_INTERVAL, 0)
     setTimer(fallGuard, 250, 0)
     setTimer(maybeScanOnMove, 700, 0)
-    setTimer(scan, 1500, 1)
+    -- No early one-shot scan: the periodic timer takes over as soon as the
+    -- world is ready, so cold joins can no longer spawn duplicate road tiles.
     triggerServerEvent("lcSG:report", localPlayer, "startup", 1, 0)
     outputDebugString("[LC-Surface] guard active (grid " .. (RADIUS * 2 + 1) .. "x" .. (RADIUS * 2 + 1) .. ", max patches " .. MAX_PATCHES .. ")", 3)
 end)
