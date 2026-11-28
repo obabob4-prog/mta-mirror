@@ -228,6 +228,19 @@ local function tick()
     local st = S
     if not st then return end
     local deadline = getTickCount() + TICK_MS
+    st.ticks = (st.ticks or 0) + 1
+    if st.ticks % 40 == 0 then
+        outputDebugString(string.format(
+            "[lc_overlap] progress step=%d i=%d gi=%d pairs=%d results=%d tested=%d",
+            st.step, st.i or 0, st.gi or 0, st.pairs or 0,
+            #st.results, st.tested or 0), 3)
+    end
+    if getTickCount() - st.startedAt > 240000 then
+        fail(string.format("timeout at step=%d i=%d gi=%d pairs=%d results=%d tested=%d",
+            st.step, st.i or 0, st.gi or 0, st.pairs or 0,
+            #st.results, st.tested or 0))
+        return
+    end
     while true do
         local ok, done = pcall(steps[st.step], st, deadline)
         if not ok then fail(done); return end
@@ -256,6 +269,7 @@ local function startScan()
         noId = 0, excluded = 0, tooSmall = 0, tooBig = 0,
         grid = {}, gridDropped = 0, gi = 0,
         seen = {}, results = {}, pairs = 0, floor = 0,
+        ticks = 0, tested = 0, startedAt = getTickCount(),
         prevKey = nil, cellKey = nil, ca = nil, cb = nil,
     }
     tick()
