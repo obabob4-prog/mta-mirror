@@ -1,0 +1,17 @@
+﻿<meta>
+    <info author="OpenCode" name="liberty_city_environment_upgrade" type="script" version="1.0"
+          description="Independent, reversible 4K sidewalk and building material upgrade for Liberty City" />
+
+    <script src="s_lceu.lua" type="server" />
+    <script src="c_lceu_v4.lua" type="client" />
+
+    <file src="shaders/lceu_replace_v4.fx" />
+    <file src="shaders/lceu_detail.fx" />
+    <file src="shaders/lceu_glass.fx" />
+
+    <file src="textures/lc_concrete_4k_v3.jpg" />
+    <file src="textures/lc_stone_4k_v3.jpg" />
+    <file src="textures/facade_detail_4k.png" />
+</meta>
+
+
