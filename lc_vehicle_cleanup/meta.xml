@@ -1,0 +1,4 @@
+<meta>
+    <info name="lc_vehicle_cleanup" description="Remove stray vehicles near LC spawn on start" version="1.0" type="script" />
+    <script src="server.lua" type="server" />
+</meta>
