@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<meta>
+    <info author="OpenCode" name="LC Elite Roleplay" version="1.0.0"
+          type="gamemode"
+          description="GTA V style mafia and LSPD roleplay inside the original Liberty City map. Exterior world is never modified." />
+
+    <min_mta_version server="1.6.0-9.22470" client="1.6.0-9.22470" />
+
+    <!-- shared configuration first -->
+    <script src="shared/config.lua" type="shared" cache="false" />
+
+    <!-- server authority -->
+    <script src="server/s_db.lua" type="server" cache="false" />
+    <script src="server/s_core.lua" type="server" cache="false" />
+    <script src="server/s_hq.lua" type="server" cache="false" />
+    <script src="server/s_mafia.lua" type="server" cache="false" />
+    <script src="server/s_police.lua" type="server" cache="false" />
+    <script src="server/s_economy.lua" type="server" cache="false" />
+    <script src="server/s_vehicles.lua" type="server" cache="false" />
+    <script src="server/s_tests.lua" type="server" cache="false" />
+
+    <!-- client presentation and private interior rendering -->
+    <script src="client/c_core.lua" type="client" cache="false" />
+    <script src="client/c_ui.lua" type="client" cache="false" />
+    <script src="client/c_hq.lua" type="client" cache="false" />
+    <script src="client/c_mafia.lua" type="client" cache="false" />
+    <script src="client/c_police.lua" type="client" cache="false" />
+    <script src="client/c_vehicles.lua" type="client" cache="false" />
+
+    <!-- proven GTA V private interior assets, reused from luxury_houses.
+         They are instantiated ONLY inside private dimensions, never in dim 0. -->
+    <file src="models/apt_mp_shell.dff" />
+    <file src="models/apt_mp_mod.txd" />
+    <file src="models/apt_mp_shell.col" />
+    <file src="models/apt_mp_int.dff" />
+    <file src="models/apt_mp_int.txd" />
+    <file src="models/apt_mp_int.col" />
+    <file src="models/apt_mp_props.dff" />
+    <file src="models/apt_mp_props.txd" />
+    <file src="models/apt_mp_props.col" />
+
+    <include resource="ng-database" />
+    <include resource="ng-economy" />
+    <include resource="ng-inventory" />
+    <!-- Arabic interface font (Cairo/Tajawal) is served by this running resource. -->
+    <include resource="lmb_mechanic" />
+
+    <!-- Read-only diagnostics for the server console / hotreload channel. -->
+    <export function="runSelfTests" http="false" />
+</meta>
